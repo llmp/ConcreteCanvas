@@ -1,0 +1,364 @@
+fileFormatVersion: 2
+guid: 71e30ac3f8e90451e9e968ec0be69c1b
+timeCreated: 1445546942
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: painter_0
+    21300002: painter_1
+    21300004: painter_2
+    21300006: painter_3
+    21300008: painter_4
+    21300010: painter_5
+    21300012: painter_6
+    21300014: painter_7
+    21300016: painter_8
+    21300018: painter_9
+    21300020: painter_10
+    21300022: painter_11
+    21300024: painter_12
+    21300026: painter_13
+    21300028: painter_14
+    21300030: painter_15
+    21300032: painter_16
+    21300034: painter_17
+    21300036: painter_18
+    21300038: painter_19
+    21300040: painter_20
+    21300042: painter_21
+    21300044: painter_22
+    21300046: painter_23
+    21300048: painter_24
+    21300050: painter_25
+    21300052: painter_26
+    21300054: painter_27
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: painter_0
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 349
+        width: 53
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_1
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 349
+        width: 53
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_2
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 349
+        width: 53
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_3
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 349
+        width: 53
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_4
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 349
+        width: 53
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_5
+      rect:
+        serializedVersion: 2
+        x: 776
+        y: 349
+        width: 53
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_6
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 349
+        width: 53
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_7
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 243
+        width: 53
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_8
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 238
+        width: 53
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_9
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 240
+        width: 53
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_10
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 236
+        width: 53
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_11
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 238
+        width: 53
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_12
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 240
+        width: 53
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_13
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 236
+        width: 53
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_14
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 117
+        width: 80
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_15
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 117
+        width: 80
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_16
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 116
+        width: 80
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_17
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 116
+        width: 80
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_18
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 116
+        width: 80
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_19
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 117
+        width: 80
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_20
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 116
+        width: 80
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_21
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 0
+        width: 80
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_22
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 0
+        width: 80
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_23
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 0
+        width: 80
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_24
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 0
+        width: 80
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_25
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 0
+        width: 80
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_26
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 0
+        width: 80
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: painter_27
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 0
+        width: 80
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
