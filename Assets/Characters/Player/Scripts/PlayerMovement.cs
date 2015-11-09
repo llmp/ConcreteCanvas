@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.W)){
+            
 			activateAnimation("isStanding");
 			isWalking = false;
 		}
