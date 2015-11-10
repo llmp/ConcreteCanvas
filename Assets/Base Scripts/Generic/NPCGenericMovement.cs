@@ -2,8 +2,15 @@
 using System.Collections;
 using System;
 
-public class PainterMovement : NPCGenericMovement {
+public class NPCGenericMovement : MonoBehaviour {
 
+	
+	public float moveSpeed = 0.02f;
+	
+	[SerializeField]
+	private short moveCount = 0;
+	[SerializeField]
+	private short frameCount = 180;
 	
 	private Animator animator;
 	
@@ -17,15 +24,75 @@ public class PainterMovement : NPCGenericMovement {
 	
 	// Use this for initialization
 	void Start () {
-		initializeAnimator(gameObject.GetComponent<Animator>());
+
 	}
-	
+
+
+	protected void initializeAnimator(Animator childAnimator){
+		this.animator = childAnimator;
+	}
+
 	// Update is called once per frame
-	void Update () {
-		applyMotion();
+	public void applyMotion() {
+
+		if (moveCount == 0){
+
+			int seed = unchecked(DateTime.Now.Ticks.GetHashCode());
+			System.Random random = new System.Random(seed);
+			float rand = (float) random.NextDouble();
+
+			short optPossibilities = checkBorders(transform.position);
+			
+			short opt = 0;
+			bool passedTest = false;
+			
+			while(!passedTest){
+				opt = (short) Mathf.Ceil((rand * optPossibilities));
+				passedTest = validateOptionAgainstCheckers(opt);
+			}
+			
+			if (opt == 1){
+				//UP
+				movingUp = true;
+				movingRight = false;
+				movingLeft = false;
+			}
+			else if (opt == 2){
+				//RIGHT
+				movingUp = false;
+				movingRight = true;
+				movingLeft = false;
+				
+			}
+			else if (opt == 3){
+				//BOT
+				movingUp = false;
+				movingRight = false;
+				movingLeft = false;
+				
+			}
+			else if (opt == 4){
+				//LEFT
+				movingUp = false;
+				movingRight = false;
+				movingLeft = true;
+				
+			}
+		}
+		
+		if (moveCount < frameCount){
+			moveCount ++;
+			checkBorders(transform.position);
+			moveCharacter (movingUp,movingRight,movingLeft);
+		}
+		
+		else {
+			moveCount = 0;
+			unflagAllTouchChecks();
+		}
 	}
 	
-	public void moveCop(bool up, bool right, bool left){
+	public void moveCharacter(bool up, bool right, bool left){
 		bool done = false;
 		while(!done){
 			if (up) {
@@ -119,7 +186,7 @@ public class PainterMovement : NPCGenericMovement {
 		float yDist = mainCamera.orthographicSize;
 		float yMax = mainCamera.transform.position.y + yDist;
 		float yMin = mainCamera.transform.position.y - yDist;
-
+		
 		
 		// 4 - Touching Check
 		
@@ -127,7 +194,7 @@ public class PainterMovement : NPCGenericMovement {
 		if (newPosition.x <= xMin + 0.3f) {
 			movePossibilities --;
 			touchingLeft = true;
-
+			
 		}
 		else if(newPosition.x >= xMax - 0.3f){
 			movePossibilities --;
@@ -138,7 +205,7 @@ public class PainterMovement : NPCGenericMovement {
 		if(newPosition.y <= yMin + 0.3f){
 			movePossibilities --;
 			touchingBot = true;
-
+			
 		}
 		else if(newPosition.y >= yMax - 0.3f){
 			movePossibilities --;
@@ -146,39 +213,27 @@ public class PainterMovement : NPCGenericMovement {
 		}
 		return movePossibilities;
 	}
-
+	
 	private void unflagAllTouchChecks(){
 		touchingUp = false;
 		touchingRight = false;
 		touchingBot = false;
 		touchingLeft = false;
 	}
-	
-	void OnTriggerEnter2D(Collider2D collider){
-		Debug.Log ("Painter Collision: " + collider.name); 
-		if (collider.name.CompareTo("player") == 0){
-			GameObject.Find("cop").GetComponent<CopMovement>().foundSomething();
-		}
-		onCollisionChangeDirection();
-	}
 
-	void OnTriggerExit2D(Collider2D collider){
-//		Debug.Log ("No longer colliding with " + collider.name);
-	}
-
-	private void onCollisionChangeDirection(){
+	protected void onCollisionChangeDirection(){
 		/*
 		 * As the character shouldn't walk back the direction he was originally coming from, 
 		 * we'll generate a random number between 0 and 1 to decide which of the remaining 
 		 * 2 directions he will move for the next frames
 		 */
-
+		
 		if (movingUp){
 			//Block current walking direction
 			movingUp = false;
 			//Get a random number
 			int rand = getRandInt();
-
+			
 			if (rand == 0){
 				movingRight = true;
 			}
@@ -186,17 +241,17 @@ public class PainterMovement : NPCGenericMovement {
 				movingLeft = true;
 			}
 		}
-
+		
 		else if (movingRight){
 			movingRight = false;
 			int rand = getRandInt();
-
+			
 			if (rand == 0){
 				movingUp = true;
 			}
-
+			
 		}
-
+		
 		else if (movingLeft){
 			movingLeft = false;
 			int rand = getRandInt();
@@ -217,7 +272,7 @@ public class PainterMovement : NPCGenericMovement {
 		}
 
 	}
-
+	
 	private int getRandInt(){
 		int seed = unchecked(DateTime.Now.Ticks.GetHashCode());
 		System.Random random = new System.Random(seed);

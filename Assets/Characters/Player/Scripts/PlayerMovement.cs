@@ -10,26 +10,14 @@ public class PlayerMovement : MonoBehaviour {
 	private bool isWalking = false;
 	private Animator animator;
 	
-	//	public ChangeSprite changeSprite = new ChangeSprite();
-	
 	// Use this for initialization
 	void Start () {
-//		spriteRenderer = GetComponent<SpriteRenderer> ();
-//		if (spriteRenderer.sprite == null) {
-//			spriteRenderer.sprite = gameObject.GetComponent<ChangeSprite>().falling;
-//		}
 		animator = gameObject.GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKey (KeyCode.D)) {
-
-//			gameObject.GetComponent<ChangeSprite>().ChangeSpriteTo(spriteRenderer, gameObject.GetComponent<ChangeSprite>().right);
-//			if (!isFacingRight){
-//				flip();
-//			}
-//			isFacingRight = true;
 			if (!isWalking){
 				activateAnimation("isWalkingRight");
 				isWalking = true;
@@ -37,11 +25,6 @@ public class PlayerMovement : MonoBehaviour {
 			transform.position += new Vector3(moveSpeed,0,0);
 		} 
 		else if (Input.GetKey (KeyCode.A)) {
-//			gameObject.GetComponent<ChangeSprite>().ChangeSpriteTo(spriteRenderer, gameObject.GetComponent<ChangeSprite>().left);
-//			if (isFacingRight){
-//				flip ();
-//			}
-//			isFacingRight = false;
 			if (!isWalking){
 				activateAnimation("isWalkingLeft");
 				isWalking = true;
@@ -49,7 +32,6 @@ public class PlayerMovement : MonoBehaviour {
 			transform.position += new Vector3(-(moveSpeed),0,0);
 		} 
 		else if (Input.GetKey(KeyCode.W)) {
-//			gameObject.GetComponent<ChangeSprite>().ChangeSpriteTo(spriteRenderer, gameObject.GetComponent<ChangeSprite>().up);
 			if (!isWalking){
 				activateAnimation("isWalkingUp");
 				isWalking = true;
@@ -58,7 +40,6 @@ public class PlayerMovement : MonoBehaviour {
 			
 		} 
 		else if (Input.GetKey(KeyCode.S)){
-//			gameObject.GetComponent<ChangeSprite>().ChangeSpriteTo(spriteRenderer, gameObject.GetComponent<ChangeSprite>().down);
 			if (!isWalking){
 				activateAnimation("isWalkingBot");
 				isWalking = true;
@@ -73,9 +54,6 @@ public class PlayerMovement : MonoBehaviour {
 			activateAnimation("isStanding");
 			isWalking = false;
 		}
-		//		if (Input.GetKeyUp (KeyCode.D) || Input.GetKeyUp (KeyCode.A)){
-		//			gameObject.GetComponent<ChangeSprite>().ChangeSpriteTo(spriteRenderer, gameObject.GetComponent<ChangeSprite>().neutral);
-		//		}
 	}
 	
 	private void flip(){
