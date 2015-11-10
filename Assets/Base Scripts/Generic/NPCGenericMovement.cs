@@ -6,11 +6,17 @@ public class NPCGenericMovement : MonoBehaviour {
 
 	
 	public float moveSpeed = 0.02f;
+
 	
 	[SerializeField]
-	private short moveCount = 0;
+	private short fieldOfViewFront = 3;
 	[SerializeField]
-	private short frameCount = 180;
+	private float fieldOfViewSides = 0.3f;
+	
+	[SerializeField]
+	protected short moveCount = 0;
+	[SerializeField]
+	protected short frameCount = 180;
 	
 	private Animator animator;
 	
@@ -219,6 +225,73 @@ public class NPCGenericMovement : MonoBehaviour {
 		touchingRight = false;
 		touchingBot = false;
 		touchingLeft = false;
+	}
+
+	protected void lookFor(Vector3 objectivePosition){
+		
+		Debug.Log (objectivePosition);
+		
+		float yViewMin;
+		float yViewMax;
+		float xViewMin;
+		float xViewMax;
+		Vector3 currentPosition = transform.position;
+		
+		if(movingRight){
+			yViewMin = currentPosition.y - fieldOfViewSides;
+			yViewMax = currentPosition.y + fieldOfViewSides;
+			xViewMin = currentPosition.x;
+			xViewMax = currentPosition.x + fieldOfViewFront;
+			
+			if (objectivePosition.y <= yViewMax && objectivePosition.y >= yViewMin && objectivePosition.x >= xViewMin && objectivePosition.x <= xViewMax){
+				foundSomething();
+			}
+			
+		}
+		
+		else if(movingLeft){
+			yViewMin = currentPosition.y - fieldOfViewSides;
+			yViewMax = currentPosition.y + fieldOfViewSides;
+			xViewMin = currentPosition.x;
+			xViewMax = currentPosition.x - fieldOfViewFront;
+			
+			if (objectivePosition.y <= yViewMax && objectivePosition.y >= yViewMin && objectivePosition.x <= xViewMin && objectivePosition.x >= xViewMax){
+				foundSomething();
+			}
+		}
+		
+		else if(movingUp){
+			yViewMin = currentPosition.y;
+			yViewMax = currentPosition.y + fieldOfViewFront;
+			xViewMin = currentPosition.x  - fieldOfViewSides;
+			xViewMax = currentPosition.x + fieldOfViewSides;
+			
+			if (objectivePosition.y <= yViewMax && objectivePosition.y >= yViewMin && objectivePosition.x >= xViewMin && objectivePosition.x <= xViewMax){
+				foundSomething();
+			}
+		}
+		
+		else {
+			yViewMin = currentPosition.y;
+			yViewMax = currentPosition.y - fieldOfViewFront;
+			xViewMin = currentPosition.x - fieldOfViewSides;
+			xViewMax = currentPosition.x + fieldOfViewSides;
+			
+			if (objectivePosition.y >= yViewMax && objectivePosition.y <= yViewMin && objectivePosition.x >= xViewMin && objectivePosition.x <= xViewMax){
+				foundSomething();
+			}
+		}
+	}
+
+	
+	public void foundSomething(){
+		Vector3 instantiateAt = transform.position + new Vector3(0.2f,0.6f,0);
+		GameObject controller = GameObject.Find("controller");
+		if (!controller.GetComponent<PrefabFactory>().instanceExists){
+			controller.GetComponent<PrefabFactory>()
+				.instantiatePrefabBornToDie(controller.GetComponent<PrefabFactory>().prefabArray[0],
+				                            instantiateAt,1.5f);
+		}
 	}
 
 	protected void onCollisionChangeDirection(){
