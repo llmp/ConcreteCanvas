@@ -60,59 +60,42 @@ public class PlayerMovement : MonoBehaviour {
 			
 		}
 
-        /*	if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.W)){
-                activateAnimation("isStanding");
-                isWalking = false;
-            }
-            */
-
         //possible use of switch case keycode.variable case variable A,S...
         if (Input.GetKeyUp(KeyCode.A))
         {
             activateAnimation("isStanding");
             setDirection("left");
             setWalk(false);
-            //isWalking = false;
         }
+
         else if (Input.GetKeyUp(KeyCode.S))
         {
             activateAnimation("isStanding");
             setDirection("down");
             setWalk(false);
-            //isWalking = false;
-
         }
+
         else if (Input.GetKeyUp(KeyCode.D))
         {
             activateAnimation("isStanding");
             setDirection("right");
             setWalk(false);
-            //isWalking = false;
-
         }
+
         else if (Input.GetKeyUp(KeyCode.W))
         {
             activateAnimation("isStanding");
             setDirection("up");
             setWalk(false);
-            //isWalking = false;
-
-
         }
 
-
-        if ((Input.GetKey(KeyCode.Space)) /*&& touch*/)
+        if (Input.GetKey(KeyCode.Space))
         {
             interact();
             
         }
-        getFace();
+		getFacingDirection();
     }
-
-	
-	private void flip(){
-		gameObject.transform.localScale = new Vector3((gameObject.transform.localScale.x * (-1)), gameObject.transform.localScale.y, gameObject.transform.localScale.z);
-	}
 
 	private void activateAnimation(string animationStr){
 		animator.SetBool("isWalkingUp",false);
@@ -132,16 +115,16 @@ public class PlayerMovement : MonoBehaviour {
         Debug.Log("Touched");
     }
 
-    public void setDirection(string dir)
+    public void setDirection(string direction)
     {
-        if (dir == "up")
+		if (direction == "up")
         {
             standingUp = true;
             standingRight = false;
             standingLeft = false;
             standingDown = false;
         }
-        else if (dir == "left")
+		else if (direction == "left")
         {
 
             standingUp = false;
@@ -149,7 +132,7 @@ public class PlayerMovement : MonoBehaviour {
             standingLeft = true;
             standingDown = false;
         }
-        else if (dir == "down")
+		else if (direction == "down")
         {
 
             standingUp = false;
@@ -157,7 +140,7 @@ public class PlayerMovement : MonoBehaviour {
             standingLeft = false;
             standingDown = true;
         }
-        else if (dir == "right")
+		else if (direction == "right")
         {
 
             standingUp = false;
@@ -165,19 +148,13 @@ public class PlayerMovement : MonoBehaviour {
             standingLeft = false;
             standingDown = false;
         }
-        else
-        {
-            Debug.Log("Wrong string");
-        }
-
-
     }
-    public void setWalk(bool b)
+    public void setWalk(bool isWalking)
     {
-        isWalking = b;
+        this.isWalking = isWalking;
     }
 
-    public int getFace()
+    public int getFacingDirection()
     {
         if (standingDown)
         {
@@ -204,9 +181,6 @@ public class PlayerMovement : MonoBehaviour {
             Debug.Log("no direction");
             return 0;
         }
-
-
-
     }
 
     void OnTriggerEnter2D(Collider2D collision)

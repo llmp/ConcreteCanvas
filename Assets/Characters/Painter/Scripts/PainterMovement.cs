@@ -4,8 +4,6 @@ using System;
 
 public class PainterMovement : NPCGenericMovement {
 	
-	private Animator animator;
-	
 	// Use this for initialization
 	void Start () {
 		initializeAnimator(gameObject.GetComponent<Animator>());
