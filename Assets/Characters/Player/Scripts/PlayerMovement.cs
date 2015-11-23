@@ -7,10 +7,11 @@ public class PlayerMovement : MonoBehaviour {
     private bool standingDown = false;
     private bool standingLeft = false;
     private bool standingRight = false;
+    
 
     //interactions
     private bool touchingWall = false;
-
+    private bool touchingItem = false;
 
     public SpriteRenderer spriteRenderer;
 	public float moveSpeed = 0.5f;
@@ -88,13 +89,21 @@ public class PlayerMovement : MonoBehaviour {
             setDirection("up");
             setWalk(false);
         }
-
-        if (Input.GetKey(KeyCode.Space))
+        getFacingDirection();
+        if ((Input.GetKey(KeyCode.Space)) )
         {
-            interact();
+            if (touchingWall && standingUp)
+            {
+                interact("wall");
+            }
+            else if (touchingItem)
+            {
+                interact("item");
+            }
+            
             
         }
-		getFacingDirection();
+		
     }
 
 	private void activateAnimation(string animationStr){
@@ -110,9 +119,15 @@ public class PlayerMovement : MonoBehaviour {
     //testing the idea in the same script
     //aim to referr to another object
 
-    private void interact()
+    private void interact(string str)
     {
-        Debug.Log("Touched");
+        if (str == "wall")
+        {
+            paint();
+        } else if(str == "item")
+        {
+
+        }
     }
 
     public void setDirection(string direction)
@@ -182,17 +197,24 @@ public class PlayerMovement : MonoBehaviour {
             return 0;
         }
     }
+    void paint()
+    {
 
+    }
+    void itemPickUp()
+    {
+       GameObject obj= GameObject.Find("cop");
+       
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         
       if (collision.name == "wall")
-            
-        {
-        touchingWall = true;
-            Debug.Log(touchingWall + "TW");
-        //collision.gameObject.SendMessage("in front of the wall")`
-        //paint(gameObject);
+      {
+         touchingWall = true;
+      }else if(collision.name == "item")
+      {
+            touchingItem = true;
       }
     }
     void OnTriggerExit2D(Collider2D collision)
@@ -202,9 +224,10 @@ public class PlayerMovement : MonoBehaviour {
 
         {
             touchingWall = false;
-            Debug.Log(touchingWall + "TW false");
-            //collision.gameObject.SendMessage("in front of the wall")`
-            //paint(gameObject);
+        }
+        else if (collision.name == "item")
+        {
+            touchingItem = false;
         }
     }
 
