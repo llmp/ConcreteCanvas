@@ -3,21 +3,28 @@ using System.Collections;
 using System;
 
 public class CopMovement : NPCGenericMovement {
-    //states
 
-    private bool eating = false;
+    private bool isEating = false;
     private float time = 0;
-
-
-	// Use this for initialization
-	void Start () {
+	
+	void Start(){
 		initializeAnimator(gameObject.GetComponent<Animator>());
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+	void Update(){
 		applyMotion();
 		lookFor(GameObject.Find("player").transform.position);
+	}
+
+	public void eatDonut(){
+		isEating = true;
+		while (time < 2)
+		{
+			time += Time.deltaTime;
+			
+		}
+		isEating = false;
+		time = 0;
 	}
 
 	void OnTriggerEnter2D(Collider2D collider){
@@ -27,15 +34,4 @@ public class CopMovement : NPCGenericMovement {
 			onCollisionChangeDirection();
 		}
 	}
-    public void toEat()
-    {
-        eating = true;
-        while (time < 2)
-        {
-            time += Time.deltaTime;
-
-        }
-        eating = false;
-        time = 0;
-    }
 }

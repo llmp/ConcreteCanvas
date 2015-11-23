@@ -3,31 +3,24 @@ using System.Collections;
 using System;
 
 public class NPCGenericMovement : MonoBehaviour {
-
-	
-	public float moveSpeed = 0.02f;
-
 	
 	[SerializeField]
 	private short fieldOfViewFront = 3;
 	[SerializeField]
 	private float fieldOfViewSides = 0.3f;
-	
+	[SerializeField]
+	private float moveSpeed = 0.02f;
 	[SerializeField]
 	protected short moveCount = 0;
 	[SerializeField]
 	protected short frameCount = 180;
-	
-	private Animator animator;
-	
+
 	private bool movingRight = false;
 	private bool movingLeft = false;
 	private bool movingUp = false;
-	private bool touchingUp = false;
-	private bool touchingBot = false;
-	private bool touchingLeft = false;
-	private bool touchingRight = false;
-	
+	private Animator animator;
+
+
 	// Use this for initialization
 	void Start () {
 
@@ -47,38 +40,34 @@ public class NPCGenericMovement : MonoBehaviour {
 			System.Random random = new System.Random(seed);
 			float rand = (float) random.NextDouble();
 
-			short optPossibilities = checkBorders(transform.position);
+			short optPossibilities = gameObject.GetComponent<BoundariesChecker>().getPossibleMoves(transform.position);
 			
 			short opt = 0;
 			bool passedTest = false;
 			
 			while(!passedTest){
-				opt = (short) Mathf.Ceil((rand * optPossibilities));
+				opt = (short) Mathf.Ceil(rand * optPossibilities);
 				passedTest = validateOptionAgainstCheckers(opt);
 			}
 			
 			if (opt == 1){
-				//UP
 				movingUp = true;
 				movingRight = false;
 				movingLeft = false;
 			}
 			else if (opt == 2){
-				//RIGHT
 				movingUp = false;
 				movingRight = true;
 				movingLeft = false;
 				
 			}
 			else if (opt == 3){
-				//BOT
 				movingUp = false;
 				movingRight = false;
 				movingLeft = false;
 				
 			}
 			else if (opt == 4){
-				//LEFT
 				movingUp = false;
 				movingRight = false;
 				movingLeft = true;
@@ -88,13 +77,13 @@ public class NPCGenericMovement : MonoBehaviour {
 		
 		if (moveCount < frameCount){
 			moveCount ++;
-			checkBorders(transform.position);
+			gameObject.GetComponent<BoundariesChecker>().checkBorders(transform.position);
 			moveCharacter (movingUp,movingRight,movingLeft);
 		}
 		
 		else {
 			moveCount = 0;
-			unflagAllTouchChecks();
+			gameObject.GetComponent<BoundariesChecker>().unflagAllTouchChecks();
 		}
 	}
 	
@@ -102,7 +91,7 @@ public class NPCGenericMovement : MonoBehaviour {
 		bool done = false;
 		while(!done){
 			if (up) {
-				if (!touchingUp){
+				if (!gameObject.GetComponent<BoundariesChecker>().isTouchingTop){
 					activateAnimation("isWalkingUp");			
 					transform.position += new Vector3(0,moveSpeed,0);
 					done = true;
@@ -113,7 +102,7 @@ public class NPCGenericMovement : MonoBehaviour {
 				}
 			}
 			else if (right){
-				if (!touchingRight){
+				if (!gameObject.GetComponent<BoundariesChecker>().isTouchingRight){
 					activateAnimation("isWalkingRight");			
 					transform.position += new Vector3(moveSpeed,0,0);
 					done = true;
@@ -127,7 +116,7 @@ public class NPCGenericMovement : MonoBehaviour {
 				}
 			}
 			else if (left){
-				if (!touchingLeft){
+				if (!gameObject.GetComponent<BoundariesChecker>().isTouchingLeft){
 					activateAnimation("isWalkingLeft");		
 					transform.position += new Vector3(-(moveSpeed),0,0);
 					done = true;
@@ -140,7 +129,7 @@ public class NPCGenericMovement : MonoBehaviour {
 				}
 			}
 			else {
-				if (!touchingBot){
+				if (!gameObject.GetComponent<BoundariesChecker>().isTouchingBottom){
 					activateAnimation("isWalkingBot");
 					transform.position += new Vector3(0,-(moveSpeed),0);
 					done = true;
@@ -162,74 +151,19 @@ public class NPCGenericMovement : MonoBehaviour {
 	}
 	
 	private bool validateOptionAgainstCheckers(short opt){
-		if (opt == 1 && touchingUp)
+		if (opt == 1 && gameObject.GetComponent<BoundariesChecker>().isTouchingTop)
 			return false;
-		else if (opt == 2 && touchingRight)
+		else if (opt == 2 && gameObject.GetComponent<BoundariesChecker>().isTouchingRight)
 			return false;
-		else if (opt == 3 && touchingBot)
+		else if (opt == 3 && gameObject.GetComponent<BoundariesChecker>().isTouchingBottom)
 			return false;
-		else if (opt == 4 && touchingLeft)
+		else if (opt == 4 && gameObject.GetComponent<BoundariesChecker>().isTouchingLeft)
 			return false;
 		else 
 			return true;
 	}
-	
-	// HIC SUNT DRACONES
-	private short checkBorders(Vector3 checkVector)
-	{
-		// 1 - Main variables
-		short movePossibilities = 4;
-		Vector3 newPosition = checkVector;
-		Camera mainCamera = Camera.main;
-		Vector3 cameraPosition = mainCamera.transform.position;
-		
-		// 2 - X Axis variables
-		float xDist = mainCamera.aspect * mainCamera.orthographicSize; 
-		float xMax = cameraPosition.x + xDist;
-		float xMin = cameraPosition.x - xDist;
-		
-		// 3 - Y Axis variables
-		float yDist = mainCamera.orthographicSize;
-		float yMax = mainCamera.transform.position.y + yDist;
-		float yMin = mainCamera.transform.position.y - yDist;
-		
-		
-		// 4 - Touching Check
-		
-		// Check for X Axis
-		if (newPosition.x <= xMin + 0.3f) {
-			movePossibilities --;
-			touchingLeft = true;
-			
-		}
-		else if(newPosition.x >= xMax - 0.3f){
-			movePossibilities --;
-			touchingRight = true;
-		}
-		
-		// Check for Y Axis
-		if(newPosition.y <= yMin + 0.3f){
-			movePossibilities --;
-			touchingBot = true;
-			
-		}
-		else if(newPosition.y >= yMax - 0.3f){
-			movePossibilities --;
-			touchingUp = true;
-		}
-		return movePossibilities;
-	}
-	
-	private void unflagAllTouchChecks(){
-		touchingUp = false;
-		touchingRight = false;
-		touchingBot = false;
-		touchingLeft = false;
-	}
 
 	protected void lookFor(Vector3 objectivePosition){
-		
-		Debug.Log (objectivePosition);
 		
 		float yViewMin;
 		float yViewMax;
