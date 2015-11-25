@@ -39,22 +39,23 @@ public class BoundariesChecker : MonoBehaviour {
 		return movePossibilities;
 	}
 
-	public void checkBorders(Vector3 checkVector){
+	public void checkBorders(Vector3 checkVector, float proximityXFactor, float proximityYFactor){
+		unflagAllTouchChecks();
 		Coordinates coordinates = getRelativeCoordinates("background");
 
-		if (checkVector.x <= coordinates.xMin + 0.3f) {
+		if (checkVector.x <= coordinates.xMin + proximityXFactor) {
 			isTouchingLeft = true;
 		}
 		
-		else if(checkVector.x >= coordinates.xMax - 0.3f){
+		else if(checkVector.x >= coordinates.xMax - proximityXFactor){
 			isTouchingRight = true;
 		}
 		
-		if(checkVector.y <= coordinates.yMin + 0.3f){
+		if(checkVector.y <= coordinates.yMin + proximityYFactor){
 			isTouchingBottom = true;
 		}
 		
-		else if(checkVector.y >= coordinates.yMax - 0.3f){
+		else if(checkVector.y >= coordinates.yMax - proximityYFactor){
 			isTouchingTop = true;
 		}
 	}
@@ -63,13 +64,24 @@ public class BoundariesChecker : MonoBehaviour {
 		Camera mainCamera = Camera.main;
 		Coordinates coordinates;
 
-		float xDist = mainCamera.aspect * mainCamera.orthographicSize;
-		coordinates.xMax = GameObject.Find(reference).transform.position.x + xDist;
-		coordinates.xMin = GameObject.Find(reference).transform.position.x - xDist;
+//		if (!precise){
+			float xDist = mainCamera.aspect * mainCamera.orthographicSize;
+			coordinates.xMax = GameObject.Find(reference).transform.position.x + xDist;
+			coordinates.xMin = GameObject.Find(reference).transform.position.x - xDist;
 
-		float yDist = mainCamera.orthographicSize;
-		coordinates.yMax = GameObject.Find(reference).transform.position.y + yDist;
-		coordinates.yMin = GameObject.Find(reference).transform.position.y - yDist;
+			float yDist = mainCamera.orthographicSize;
+			coordinates.yMax = GameObject.Find(reference).transform.position.y + yDist;
+			coordinates.yMin = GameObject.Find(reference).transform.position.y - yDist;
+//		}
+//		else {
+//			float xDist = mainCamera.aspect * mainCamera.orthographicSize;
+//			coordinates.xMax = GameObject.Find(reference).transform.position.x;
+//			coordinates.xMin = GameObject.Find(reference).transform.position.x;
+//			
+//			float yDist = mainCamera.orthographicSize;
+//			coordinates.yMax = GameObject.Find(reference).transform.position.y;
+//			coordinates.yMin = GameObject.Find(reference).transform.position.y;
+//		}
 
 		return coordinates;
 	}

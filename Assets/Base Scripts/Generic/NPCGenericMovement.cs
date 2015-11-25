@@ -77,7 +77,7 @@ public class NPCGenericMovement : MonoBehaviour {
 		
 		if (moveCount < frameCount){
 			moveCount ++;
-			gameObject.GetComponent<BoundariesChecker>().checkBorders(transform.position);
+			gameObject.GetComponent<BoundariesChecker>().checkBorders(transform.position, 0.3f, 0.3f);
 			moveCharacter (movingUp,movingRight,movingLeft);
 		}
 		
