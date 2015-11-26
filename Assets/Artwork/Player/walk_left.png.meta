@@ -1,0 +1,232 @@
+fileFormatVersion: 2
+guid: c3e4e16709d5e45358984bcd4f1940ba
+timeCreated: 1448495229
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: motion_left_128x128px_0
+    21300002: motion_left_128x128px_1
+    21300004: motion_left_128x128px_2
+    21300006: motion_left_128x128px_3
+    21300008: motion_left_128x128px_4
+    21300010: motion_left_128x128px_5
+    21300012: motion_left_128x128px_6
+    21300014: motion_left_128x128px_7
+    21300016: motion_left_128x128px_8
+    21300018: motion_left_128x128px_9
+    21300020: motion_left_128x128px_10
+    21300022: motion_left_128x128px_11
+    21300024: motion_left_128x128px_12
+    21300026: motion_left_128x128px_13
+    21300028: motion_left_128x128px_14
+    21300030: motion_left_128x128px_15
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: motion_left_128x128px_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 384
+        width: 92
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_1
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 384
+        width: 87
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_2
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 384
+        width: 81
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_3
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 384
+        width: 91
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_4
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 260
+        width: 87
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_5
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 260
+        width: 90
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_6
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 263
+        width: 98
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_7
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 259
+        width: 100
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_8
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 132
+        width: 86
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_9
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 132
+        width: 76
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_10
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 128
+        width: 79
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_11
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 134
+        width: 91
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_12
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 0
+        width: 80
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_13
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 0
+        width: 81
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_14
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 3
+        width: 96
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: motion_left_128x128px_15
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 6
+        width: 98
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
