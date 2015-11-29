@@ -12,19 +12,29 @@ public class CopMovement : NPCGenericMovement {
 	}
 
 	void Update(){
-		applyMotion();
-		lookFor(GameObject.Find("player").transform.position);
-	}
+        
+        lookFor(GameObject.Find("player").transform.position);
+        if (isEating)
+        {
+            eatDonut();
+        }
+        else
+        {
+            applyMotion();
+        }
+    }
 
 	public void eatDonut(){
-		isEating = true;
-		while (time < 2)
-		{
-			time += Time.deltaTime;
-			
-		}
-		isEating = false;
-		time = 0;
+        isEating = true;
+        Debug.Log("The cop is eating a delicious donut");
+        time += Time.deltaTime;
+        if (time > 5)
+        {
+            time = 0;
+            isEating = false;
+        }
+        
+        
 	}
 
 	void OnTriggerEnter2D(Collider2D collider){

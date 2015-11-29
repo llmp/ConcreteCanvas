@@ -8,7 +8,8 @@ public class PlayerMovement : MonoBehaviour {
     private bool standingLeft = false;
     private bool standingRight = false;
     private bool touchingWall = false;
-    private bool touchingItem = false;
+    private bool touchingDonut = false;
+    private bool touchingSkate = false;
 	private bool isWalking = false;
 	private float moveSpeed = 0.02f;
 	private Animator animator;
@@ -93,11 +94,16 @@ public class PlayerMovement : MonoBehaviour {
 			{
 				interact("wall");
 			}
-			else if (touchingItem)
+			else if (touchingDonut)
 			{
-				interact("item");
+				interact("donut");
 			}
-		}
+            else if (touchingSkate)
+            {
+                interact("skateboard");
+            }
+
+        }
 	}
 
 	private void activateAnimation(string animationStr){
@@ -176,10 +182,31 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			paint();
 		} 
-		else if(str == "item")
+		else if(str == "donut")
 		{
-			
-		}
+            
+            GameObject.Destroy(GameObject.Find("donut"));
+            touchingDonut = false;
+            GameObject.Find("cop").GetComponent<CopMovement>().eatDonut();
+
+        }
+        else if(str == "skateboard")
+        {
+            gameObject.GetComponent<PlayerMovement>().moveSpeed *= 3;
+            Debug.Log("SKATE");
+            GameObject.Destroy(GameObject.Find("skateboard"));
+            touchingSkate = false;
+        }
+        else if(str == "paintBucket")
+        {
+
+        }
+       
+        else
+        {
+            Debug.Log("Error");
+        }
+
 	}
 
     void pickUpItem(){
@@ -193,10 +220,14 @@ public class PlayerMovement : MonoBehaviour {
       if (collision.name == "wall")
       {
          touchingWall = true;
-      }else if(collision.name == "item")
+      }else if(collision.name == "donut")
       {
-            touchingItem = true;
+            touchingDonut= true;
       }
+        else if (collision.name == "skateboard")
+        {
+            touchingSkate = true;
+        }
     }
     void OnTriggerExit2D(Collider2D collision){
 
@@ -205,9 +236,13 @@ public class PlayerMovement : MonoBehaviour {
         {
             touchingWall = false;
         }
-        else if (collision.name == "item")
+        else if (collision.name == "donut")
         {
-            touchingItem = false;
+            touchingDonut = false;
+        }
+        else if (collision.name == "skateboard")
+        {
+            touchingSkate = false;
         }
     }
 
