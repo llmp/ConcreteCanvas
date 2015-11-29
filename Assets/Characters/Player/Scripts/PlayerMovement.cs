@@ -2,17 +2,26 @@
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
-    
+    //Faces
     private bool standingUp = false;
     private bool standingDown = false;
     private bool standingLeft = false;
     private bool standingRight = false;
+
+    //Interactions
     private bool touchingWall = false;
     private bool touchingDonut = false;
     private bool touchingSkate = false;
-	private bool isWalking = false;
+    private bool touchingSpray = false;
+    private bool touchingBucket = false;
+    //Movement
+    private bool isWalking = false;
 	private float moveSpeed = 0.02f;
+
+    //others
+    private int sprayLoad = 2; 
 	private Animator animator;
+    //private []int bag;
 
 	void Start () {
 		animator = gameObject.GetComponent<Animator>();
@@ -102,7 +111,14 @@ public class PlayerMovement : MonoBehaviour {
             {
                 interact("skateboard");
             }
-
+            else if (touchingSpray)
+            {
+                interact("spray");
+            }
+            else if (touchingBucket)
+            {
+                interact("bucket");
+            }
         }
 	}
 
@@ -174,7 +190,25 @@ public class PlayerMovement : MonoBehaviour {
     }
     void paint()
     {
+        if(sprayLoad > 0)
+        {
+            sprayLoad--;
+        }
+        else
+        {
+            Debug.Log("Out of ink");
+        }
+    }
 
+    void dropBucket()
+
+    {
+
+        //GameObject.Find("bucket").GetComponent<SpriteRenderer>().sprite = ;
+        //GameObject floorPaint = new GameObject();
+        //floorPaint.transform.position = gameObject.transform.position;
+        //create an ink object here
+        //floorPaint.AddComponent<SpriteRenderer>();
     }
 
 	private void interact(string str){
@@ -193,15 +227,23 @@ public class PlayerMovement : MonoBehaviour {
         else if(str == "skateboard")
         {
             gameObject.GetComponent<PlayerMovement>().moveSpeed *= 3;
-            Debug.Log("SKATE");
             GameObject.Destroy(GameObject.Find("skateboard"));
             touchingSkate = false;
         }
-        else if(str == "paintBucket")
+        else if(str == "bucket")
         {
-
+            dropBucket();
+            touchingBucket = false;
         }
-       
+        else if (str == "spray")
+        {
+            sprayLoad = 2;
+            Debug.Log(sprayLoad + "loads");
+            GameObject.Destroy(GameObject.Find("spray"));
+            touchingSpray = false;
+        }
+
+
         else
         {
             Debug.Log("Error");
@@ -220,14 +262,24 @@ public class PlayerMovement : MonoBehaviour {
       if (collision.name == "wall")
       {
          touchingWall = true;
-      }else if(collision.name == "donut")
-      {
-            touchingDonut= true;
       }
-        else if (collision.name == "skateboard")
-        {
-            touchingSkate = true;
-        }
+      else if(collision.name == "donut")
+      {
+         touchingDonut= true;
+      }
+      else if (collision.name == "skateboard")
+      {
+        touchingSkate = true;
+      }
+      else if (collision.name == "spray")
+      { 
+        touchingSpray = true;
+      }
+      else if (collision.name == "bucket")
+      {
+          touchingBucket = true;
+      }
+
     }
     void OnTriggerExit2D(Collider2D collision){
 
@@ -243,6 +295,14 @@ public class PlayerMovement : MonoBehaviour {
         else if (collision.name == "skateboard")
         {
             touchingSkate = false;
+        }
+        else if (collision.name == "spray")
+        {
+            touchingSpray = false;
+        }
+        else if (collision.name == "bucket")
+        {
+            touchingBucket = false;
         }
     }
 
