@@ -11,6 +11,11 @@ generatedPolicyTables.mat holds Policy Tables in a cell container. Target state 
 generatedPolicyTables[i].getTargetState() == targetStates(i)
 ####Legend
 1 == UP
+
 2 == RIGHT
+
 3 == DOWN
+
 4 == LEFT
+
+
