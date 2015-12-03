@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour {
     private bool touchingBucket = false;
     //Movement
     private bool isWalking = false;
+	[SerializeField]
 	private float moveSpeed = 0.02f;
 
     //others

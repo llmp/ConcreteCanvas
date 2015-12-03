@@ -8,6 +8,10 @@ public class BoundariesChecker : MonoBehaviour {
 	public bool isTouchingLeft = false;
 	public bool isTouchingRight = false;
 
+	private float proximityXFactor = 0.3f;
+	private float proximityYFactor = 0.25f;
+
+
 	private struct Coordinates {
 		public float xMax;
 		public float xMin;
@@ -19,43 +23,44 @@ public class BoundariesChecker : MonoBehaviour {
 	public short getPossibleMoves(Vector3 checkVector){
 		short movePossibilities = 4;
 		Coordinates coordinates = getRelativeCoordinates("background");
+		Debug.Log(coordinates.xMax + "," + coordinates.xMin);
 
-		if (checkVector.x <= coordinates.xMin + 0.3f) {
+		if (checkVector.x <= coordinates.xMin) {
 			movePossibilities --;
 		}
 
-		else if(checkVector.x >= coordinates.xMax - 0.3f){
+		else if(checkVector.x >= coordinates.xMax){
 			movePossibilities --;
 		}
 
-		if(checkVector.y <= coordinates.yMin + 0.3f){
+		if(checkVector.y <= coordinates.yMin){
 			movePossibilities --;
 		}
 
-		else if(checkVector.y >= coordinates.yMax - 0.3f){
+		else if(checkVector.y >= coordinates.yMax){
 			movePossibilities --;
 		}
 
 		return movePossibilities;
 	}
 
-	public void checkBorders(Vector3 checkVector, float proximityXFactor, float proximityYFactor){
+	public void checkBorders(Vector3 checkVector){
 		unflagAllTouchChecks();
 		Coordinates coordinates = getRelativeCoordinates("background");
 
-		if (checkVector.x <= coordinates.xMin + proximityXFactor) {
+		if (checkVector.x < coordinates.xMin + proximityXFactor) {
 			isTouchingLeft = true;
 		}
 		
-		else if(checkVector.x >= coordinates.xMax - proximityXFactor){
+		else if(checkVector.x > coordinates.xMax - proximityXFactor){
 			isTouchingRight = true;
 		}
 		
-		if(checkVector.y <= coordinates.yMin + proximityYFactor){
+		if(checkVector.y < coordinates.yMin + proximityYFactor){
 			isTouchingBottom = true;
 		}
 		
-		else if(checkVector.y >= coordinates.yMax - proximityYFactor){
+		else if(checkVector.y > coordinates.yMax - proximityYFactor){
 			isTouchingTop = true;
 		}
 	}
@@ -64,24 +69,13 @@ public class BoundariesChecker : MonoBehaviour {
 		Camera mainCamera = Camera.main;
 		Coordinates coordinates;
 
-//		if (!precise){
-			float xDist = mainCamera.aspect * mainCamera.orthographicSize;
-			coordinates.xMax = GameObject.Find(reference).transform.position.x + xDist;
-			coordinates.xMin = GameObject.Find(reference).transform.position.x - xDist;
+		float xDist = mainCamera.aspect * mainCamera.orthographicSize;
+		coordinates.xMax = GameObject.Find(reference).transform.position.x + xDist;
+		coordinates.xMin = GameObject.Find(reference).transform.position.x - xDist;
 
-			float yDist = mainCamera.orthographicSize;
-			coordinates.yMax = GameObject.Find(reference).transform.position.y + yDist;
-			coordinates.yMin = GameObject.Find(reference).transform.position.y - yDist;
-//		}
-//		else {
-//			float xDist = mainCamera.aspect * mainCamera.orthographicSize;
-//			coordinates.xMax = GameObject.Find(reference).transform.position.x;
-//			coordinates.xMin = GameObject.Find(reference).transform.position.x;
-//			
-//			float yDist = mainCamera.orthographicSize;
-//			coordinates.yMax = GameObject.Find(reference).transform.position.y;
-//			coordinates.yMin = GameObject.Find(reference).transform.position.y;
-//		}
+		float yDist = mainCamera.orthographicSize;
+		coordinates.yMax = GameObject.Find(reference).transform.position.y + yDist;
+		coordinates.yMin = GameObject.Find(reference).transform.position.y - yDist;
 
 		return coordinates;
 	}
