@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour {
 	void Update(){
 		youShallNotPass(GameObject.Find("player").transform.position.x, GameObject.Find("player").transform.position.y);
 		fixCamera(fixedX, fixedY);
-		gameObject.GetComponent<BoundariesChecker>().checkBorders(transform.position, 1.0f, 0.6f);
+		gameObject.GetComponent<BoundariesChecker>().checkBorders(transform.position);
 
 	}
 	
