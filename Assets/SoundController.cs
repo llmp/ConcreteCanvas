@@ -10,7 +10,7 @@ public class SoundController : MonoBehaviour {
     private AudioSource aSource;
 
     void Start () {
-        aSource = gameObject.GetComponentInChildren<AudioSource>();
+        aSource = gameObject.GetComponent<AudioSource>();
         aSource.clip = sound1;
         aSource.Play();
     }
