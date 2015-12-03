@@ -6,10 +6,12 @@ public class CopMovement : NPCGenericMovement {
 
     private bool isEating = false;
     private float time = 0;
+    private AudioSource audio;
 	
 	void Start(){
 		initializeAnimator(gameObject.GetComponent<Animator>());
-	}
+        audio = gameObject.GetComponentInChildren<AudioSource>();
+    }
 
 	void Update(){
         
@@ -28,8 +30,16 @@ public class CopMovement : NPCGenericMovement {
         isEating = true;
         Debug.Log("The cop is eating a delicious donut");
         time += Time.deltaTime;
+
+        if (!audio.isPlaying)
+        {
+            audio.Play();
+        }
+
         if (time > 5)
         {
+            //          if()
+            
             time = 0;
             isEating = false;
         }

@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
+    
+    
     //Faces
     private bool standingUp = false;
     private bool standingDown = false;
@@ -229,6 +231,8 @@ public class PlayerMovement : MonoBehaviour {
             gameObject.GetComponent<PlayerMovement>().moveSpeed *= 3;
             GameObject.Destroy(GameObject.Find("skateboard"));
             touchingSkate = false;
+
+            GameObject.Find("controller").GetComponent<SoundController>().changeAudio(); 
         }
         else if(str == "bucket")
         {
