@@ -40,8 +40,6 @@ public class CameraController : MonoBehaviour {
 		bool isRight = gameObject.GetComponent<BoundariesChecker>().isTouchingRight;
 		bool isLeft = gameObject.GetComponent<BoundariesChecker>().isTouchingLeft;
 
-//		Debug.Log ( "Bot: " + isBot + ", Top: " + isTop + ", Right: " + isRight + ", Left: " + isLeft);
-
 		if (!isBot && !isTop && !isRight && !isLeft){
 			setFixXOnPlayer();
 			setFixYOnPlayer();
@@ -138,7 +136,6 @@ public class CameraController : MonoBehaviour {
 				fixedY = newY;
 			}
 		}
-//		Debug.Log ( "X: " + fixedX + ",Y:" + fixedY);
 
 	}
 }

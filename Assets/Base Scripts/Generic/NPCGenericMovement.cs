@@ -25,8 +25,7 @@ public class NPCGenericMovement : MonoBehaviour {
 	void Start () {
 
 	}
-
-
+	
 	protected void initializeAnimator(Animator childAnimator){
 		this.animator = childAnimator;
 	}

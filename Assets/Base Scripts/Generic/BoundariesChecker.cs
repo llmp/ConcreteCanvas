@@ -22,7 +22,6 @@ public class BoundariesChecker : MonoBehaviour {
 	public short getPossibleMoves(Vector3 checkVector){
 		short movePossibilities = 4;
 		Coordinates coordinates = getRelativeCoordinates("background");
-//		Debug.Log(coordinates.xMax + "," + coordinates.xMin);
 
 		if (checkVector.x <= coordinates.xMin) {
 			movePossibilities --;
@@ -78,10 +77,6 @@ public class BoundariesChecker : MonoBehaviour {
 
 		return coordinates;
 	}
-
-//	public bool checkPositionAvaliability(Vector3 desiredPosition){
-//
-//	}
 
 	public void unflagAllTouchChecks(){
 		isTouchingTop = false;

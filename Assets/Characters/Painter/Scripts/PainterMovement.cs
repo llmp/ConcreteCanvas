@@ -23,6 +23,5 @@ public class PainterMovement : NPCGenericMovement {
 	}
 
 	void OnTriggerExit2D(Collider2D collider){
-//		Debug.Log ("No longer colliding with " + collider.name);
 	}
 }

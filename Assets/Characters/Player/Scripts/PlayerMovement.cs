@@ -39,8 +39,6 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Update () {
-//		this.canWalk = true;
-//		setBoolCollider(true);
 		getKeyDown();
 		getFacingDirection();
 		getKeyUp();
