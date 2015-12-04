@@ -16,10 +16,18 @@ public class PlayerMovement : MonoBehaviour {
     private bool touchingSkate = false;
     private bool touchingSpray = false;
     private bool touchingBucket = false;
+
     //Movement
     private bool isWalking = false;
 	[SerializeField]
 	private float moveSpeed = 0.02f;
+	private short walkingDirection;
+
+	//BorderCheck
+	private bool canWalkUp = true;
+	private bool canWalkBottom = true;
+	private bool canWalkRight = true;
+	private bool canWalkLeft = true;
 
     //others
     private int sprayLoad = 2; 
@@ -31,6 +39,8 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Update () {
+//		this.canWalk = true;
+//		setBoolCollider(true);
 		getKeyDown();
 		getFacingDirection();
 		getKeyUp();
@@ -38,32 +48,40 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 	private void getKeyDown(){
-		if (Input.GetKey (KeyCode.D)) {
+		if (Input.GetKey (KeyCode.D) && canWalkRight) {
 			if (!isWalking){
 				activateAnimation("isWalkingRight");
 				isWalking = true;
+				walkingDirection = 2;
+				unflagAllBoolColliders();
 			}
 			transform.position += new Vector3(moveSpeed,0,0);
 		} 
-		else if (Input.GetKey (KeyCode.A)) {
+		else if (Input.GetKey (KeyCode.A) && canWalkLeft) {
 			if (!isWalking){
 				activateAnimation("isWalkingLeft");
 				isWalking = true;
+				walkingDirection = 4;
+				unflagAllBoolColliders();
 			}
 			transform.position += new Vector3(-(moveSpeed),0,0);
 		} 
-		else if (Input.GetKey(KeyCode.W)) {
+		else if (Input.GetKey(KeyCode.W) && canWalkUp) {
 			if (!isWalking){
 				activateAnimation("isWalkingUp");
 				isWalking = true;
+				walkingDirection = 1;
+				unflagAllBoolColliders();
 			}
 			transform.position += new Vector3(0,moveSpeed,0);
 			
 		} 
-		else if (Input.GetKey(KeyCode.S)){
+		else if (Input.GetKey(KeyCode.S) && canWalkBottom){
 			if (!isWalking){
 				activateAnimation("isWalkingBot");
 				isWalking = true;
+				walkingDirection = 3;
+				unflagAllBoolColliders();
 			}
 			transform.position += new Vector3(0,-(moveSpeed),0);
 		}
@@ -204,7 +222,6 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void dropBucket()
-
     {
 
         //GameObject.Find("bucket").GetComponent<SpriteRenderer>().sprite = ;
@@ -248,67 +265,94 @@ public class PlayerMovement : MonoBehaviour {
             touchingSpray = false;
         }
 
-
         else
         {
             Debug.Log("Error");
         }
-
 	}
 
     void pickUpItem(){
 //       GameObject obj= GameObject.Find("cop");
-       
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+	void OnTriggerEnter2D(Collider2D collider)
     {
-        
-      if (collision.name == "wall")
-      {
-         touchingWall = true;
-      }
-      else if(collision.name == "donut")
-      {
-         touchingDonut= true;
-      }
-      else if (collision.name == "skateboard")
-      {
-        touchingSkate = true;
-      }
-      else if (collision.name == "spray")
-      { 
-        touchingSpray = true;
-      }
-      else if (collision.name == "bucket")
-      {
-          touchingBucket = true;
-      }
-
+		if (collider.tag == "obstacle"){
+			setBoolCollider(false);
+		}
+		if (collider.name == "wall")
+		{
+			touchingWall = true;
+		}
+		else if(collider.name == "donut")
+		{
+			touchingDonut= true;
+		}
+		else if (collider.name == "skateboard")
+		{
+			touchingSkate = true;
+		}
+		else if (collider.name == "spray")
+		{ 
+			touchingSpray = true;
+		}
+		else if (collider.name == "bucket")
+		{
+			touchingBucket = true;
+		}
     }
-    void OnTriggerExit2D(Collider2D collision){
 
-        if (collision.name == "wall")
+	void OnTriggerStay2D(Collider2D collider){
+		if (collider.tag == "obstacle"){
+			setBoolCollider(false);
+		}
+	}
+
+    void OnTriggerExit2D(Collider2D collider){
+		if (collider.name == "wall")
 
         {
             touchingWall = false;
         }
-        else if (collision.name == "donut")
+		else if (collider.name == "donut")
         {
             touchingDonut = false;
         }
-        else if (collision.name == "skateboard")
+		else if (collider.name == "skateboard")
         {
             touchingSkate = false;
         }
-        else if (collision.name == "spray")
+		else if (collider.name == "spray")
         {
             touchingSpray = false;
         }
-        else if (collision.name == "bucket")
+		else if (collider.name == "bucket")
         {
             touchingBucket = false;
         }
     }
+
+	private void setBoolCollider(bool value){
+		if (walkingDirection == 1){
+			this.canWalkUp = value;
+		}
+		else if (walkingDirection == 2){
+			this.canWalkRight = value;
+		}
+		else if (walkingDirection == 3){
+			this.canWalkBottom = value;
+		}
+		else if (walkingDirection == 4){
+			this.canWalkLeft = value;
+		}
+	}
+
+	private void unflagAllBoolColliders(){
+		this.canWalkUp = true;
+		this.canWalkRight = true;
+		this.canWalkBottom = true;
+		this.canWalkLeft = true;
+	}
+
 
 }
