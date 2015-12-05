@@ -11,7 +11,10 @@ public class PlayerMovement : MonoBehaviour {
     private bool standingRight = false;
 
     //Interactions
-    private bool touchingWall = false;
+    private bool touchingBBuilding = false;
+    private bool touchingSignO = false;
+    private bool touchingStationO = false;
+    private bool touchingSBuilding = false;
     private bool touchingDonut = false;
     private bool touchingSkate = false;
     private bool touchingSpray = false;
@@ -33,6 +36,8 @@ public class PlayerMovement : MonoBehaviour {
     private int sprayLoad = 2; 
 	private Animator animator;
     //private []int bag;
+    private GameObject aux;
+
 
 	void Start () {
 		animator = gameObject.GetComponent<Animator>();
@@ -118,11 +123,23 @@ public class PlayerMovement : MonoBehaviour {
 	private void getInteractionKey(){
 		if ((Input.GetKey(KeyCode.Space)) )
 		{
-			if (touchingWall && standingUp)
+			if (touchingBBuilding && standingUp)
 			{
-				interact("wall");
+				interact("bBuildingO");
 			}
-			else if (touchingDonut)
+            if (touchingSignO && standingUp)
+            {
+                interact("signO");
+            }
+            if (touchingStationO && standingUp)
+            {
+                interact("stationO");
+            }
+            if (touchingSBuilding && standingUp)
+            {
+                interact("sBuildingO");
+            }
+            else if (touchingDonut)
 			{
 				interact("donut");
 			}
@@ -209,8 +226,11 @@ public class PlayerMovement : MonoBehaviour {
     }
     void paint()
     {
-        if(sprayLoad > 0)
+        GameObject.Find("controller").GetComponent<ObjectiveControl>().changeO(aux);
+        Debug.Log(aux.name);
+        if (sprayLoad > 0)
         {
+
             sprayLoad--;
         }
         else
@@ -230,7 +250,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 	private void interact(string str){
-		if (str == "wall")
+		if (str == "bBuildingO" || str== "sBuildingO" || str == "signO"|| str =="stationO" )
 		{
 			paint();
 		} 
@@ -278,11 +298,26 @@ public class PlayerMovement : MonoBehaviour {
 		if (collider.tag == "obstacle"){
 			setBoolCollider(false);
 		}
-		if (collider.name == "wall")
-		{
-			touchingWall = true;
-		}
-		else if(collider.name == "donut")
+
+        aux = collider.gameObject;
+        if (collider.name == "bBuildingO")
+        {
+            touchingBBuilding = true;
+        }
+
+        if (collider.name == "signO")
+        {
+            touchingSignO = true;
+        }
+        if (collider.name == "stationO")
+        {
+            touchingStationO = true;
+        }
+        if (collider.name == "sBuildingO")
+        {
+            touchingSBuilding = true;
+        }
+        else if (collider.name == "donut")
 		{
 			touchingDonut= true;
 		}
@@ -307,12 +342,26 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
     void OnTriggerExit2D(Collider2D collider){
-		if (collider.name == "wall")
 
+        if (collider.name == "bBuildingO")
         {
-            touchingWall = false;
+            touchingBBuilding = false;
         }
-		else if (collider.name == "donut")
+
+        if (collider.name == "signO")
+        {
+            touchingSignO = false;
+        }
+        if (collider.name == "stationO")
+        {
+            touchingStationO = false;
+        }
+        if (collider.name == "sBuildingO")
+        {
+            touchingSBuilding = false;
+        }
+
+        else if (collider.name == "donut")
         {
             touchingDonut = false;
         }
