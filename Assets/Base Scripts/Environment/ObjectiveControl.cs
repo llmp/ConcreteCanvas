@@ -1,39 +1,53 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ObjectiveControl : MonoBehaviour {
-    [SerializeField]    private Sprite signUndone;
-    [SerializeField]    private Sprite signDone;
-    [SerializeField]    private Sprite stationUndone;
-    [SerializeField]    private Sprite stationDone;
+public class ObjectiveControl : MonoBehaviour
+{
+    [SerializeField]
+    private Sprite signUndone;
+    [SerializeField]
+    private Sprite signDone;
+    [SerializeField]
+    private Sprite stationUndone;
+    [SerializeField]
+    private Sprite stationDone;
 
-    [SerializeField]    private Sprite bBuildingUndone;
-    [SerializeField]    private Sprite bBuildingDone;
+    [SerializeField]
+    private Sprite bBuildingUndone;
+    [SerializeField]
+    private Sprite bBuildingDone;
 
 
-    [SerializeField]    private Sprite sBuildingUndone;
-    [SerializeField]    private Sprite sBuildingDone;
+    [SerializeField]
+    private Sprite sBuildingUndone;
+    [SerializeField]
+    private Sprite sBuildingDone;
 
-    [SerializeField]    private Sprite sBuildingTopUndone;
-    [SerializeField]    private Sprite sBuildingTopDone;
+    [SerializeField]
+    private Sprite sBuildingTopUndone;
+    [SerializeField]
+    private Sprite sBuildingTopDone;
 
     //
     // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+    void Start()
+    {
 
-	}
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+
+    }
     public void changeO(GameObject obj)
     {
         if (obj.name == "bBuildingO")
         {
             obj.GetComponent<SpriteRenderer>().sprite = bBuildingDone;
-        }else if (obj.name == "signO")
+        }
+        else if (obj.name == "signO")
         {
             obj.GetComponent<SpriteRenderer>().sprite = signDone;
         }
@@ -46,6 +60,11 @@ public class ObjectiveControl : MonoBehaviour {
             obj.GetComponent<SpriteRenderer>().sprite = sBuildingDone;
             GameObject.Find("sBuildingTopO").GetComponent<SpriteRenderer>().sprite = sBuildingTopDone;
         }
+
+    }
+    public void checkVictory()
+    {
+
 
     }
 }
