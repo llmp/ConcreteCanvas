@@ -9,8 +9,15 @@ public class ObjectiveControl : MonoBehaviour {
 
     [SerializeField]    private Sprite bBuildingUndone;
     [SerializeField]    private Sprite bBuildingDone;
+
+
     [SerializeField]    private Sprite sBuildingUndone;
     [SerializeField]    private Sprite sBuildingDone;
+
+    [SerializeField]    private Sprite sBuildingTopUndone;
+    [SerializeField]    private Sprite sBuildingTopDone;
+
+    //
     // Use this for initialization
     void Start () {
 	
@@ -37,6 +44,7 @@ public class ObjectiveControl : MonoBehaviour {
         else if (obj.name == "sBuildingO")
         {
             obj.GetComponent<SpriteRenderer>().sprite = sBuildingDone;
+            GameObject.Find("sBuildingTopO").GetComponent<SpriteRenderer>().sprite = sBuildingTopDone;
         }
 
     }
