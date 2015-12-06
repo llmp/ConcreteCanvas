@@ -173,19 +173,19 @@ public class PlayerMovement : MonoBehaviour {
             }
             else if (touchingDonut)
 			{
-				interact("donut");
+				interact("donut(Clone)");
 			}
             else if (touchingSkate)
             {
-                interact("skateboard");
+                interact("skateboard(Clone)");
             }
             else if (touchingSpray)
             {
-                interact("spray");
+                interact("spray(Clone)");
             }
             else if (touchingBucket)
             {
-                interact("bucket");
+                interact("bucket(Clone)");
             }
         }
 	}
@@ -287,18 +287,18 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			startPainting();
 		} 
-		else if(str == "donut")
+		else if(str == "donut(Clone)")
 		{
             
-            GameObject.Destroy(GameObject.Find("donut"));
+            GameObject.Destroy(GameObject.Find("donut(Clone)"));
             touchingDonut = false;
             GameObject.Find("cop").GetComponent<CopMovement>().eatDonut();
 
         }
-        else if(str == "skateboard")
+        else if(str == "skateboard(Clone)")
         {
             gameObject.GetComponent<PlayerMovement>().moveSpeed *= 3;
-            GameObject.Destroy(GameObject.Find("skateboard"));
+            GameObject.Destroy(GameObject.Find("skateboard(Clone)"));
             touchingSkate = false;
 
             GameObject.Find("controller").GetComponent<SoundController>().changeAudio(); 
@@ -308,11 +308,11 @@ public class PlayerMovement : MonoBehaviour {
             dropBucket();
             touchingBucket = false;
         }
-        else if (str == "spray")
+        else if (str == "spray(Clone)")
         {
             sprayLoad = 2;
             Debug.Log(sprayLoad + "loads");
-            GameObject.Destroy(GameObject.Find("spray"));
+            GameObject.Destroy(GameObject.Find("spray(Clone)"));
             touchingSpray = false;
         }
 
@@ -325,6 +325,7 @@ public class PlayerMovement : MonoBehaviour {
     private void paint()
     {
         GameObject.Find("controller").GetComponent<ObjectiveControl>().changeO(aux);
+        GameObject.Find("controller").GetComponent<ObjectiveControl>().generatePowerUp();
     }
 
     void pickUpItem(){
@@ -336,8 +337,12 @@ public class PlayerMovement : MonoBehaviour {
 		if (collider.tag == "obstacle" || collider.tag == "npc"){
 			setBoolCollider(false);
 		}
+        //to not get other colliders
+        if (collider.name == "bBuildingO" || collider.name == "stationO" || collider.name == "signO" || collider.name == "sBuildingO")
+        {
+            aux = collider.gameObject;
+        }
 
-        aux = collider.gameObject;
         if (collider.name == "bBuildingO")
         {
             touchingBBuilding = true;
@@ -355,15 +360,15 @@ public class PlayerMovement : MonoBehaviour {
         {
             touchingSBuilding = true;
         }
-        else if (collider.name == "donut")
+        else if (collider.name == "donut(Clone)")
 		{
 			touchingDonut= true;
 		}
-		else if (collider.name == "skateboard")
+		else if (collider.name == "skateboard(Clone)")
 		{
 			touchingSkate = true;
 		}
-		else if (collider.name == "spray")
+		else if (collider.name == "spray(Clone)")
 		{ 
 			touchingSpray = true;
 		}
@@ -399,19 +404,19 @@ public class PlayerMovement : MonoBehaviour {
             touchingSBuilding = false;
         }
 
-        else if (collider.name == "donut")
+        else if (collider.name == "donut(Clone)")
         {
             touchingDonut = false;
         }
-		else if (collider.name == "skateboard")
+		else if (collider.name == "skateboard(Clone)")
         {
             touchingSkate = false;
         }
-		else if (collider.name == "spray")
+		else if (collider.name == "spray(Clone)")
         {
             touchingSpray = false;
         }
-		else if (collider.name == "bucket")
+		else if (collider.name == "bucket(Clone)")
         {
             touchingBucket = false;
         }

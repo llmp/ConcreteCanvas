@@ -6,6 +6,7 @@ public class PrefabFactory : MonoBehaviour {
 	public GameObject[] prefabArray = new GameObject[4];
 	public bool instanceExists = false;
 
+
 	void Start(){
 
 	}

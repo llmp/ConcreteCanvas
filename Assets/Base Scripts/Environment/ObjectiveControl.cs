@@ -29,6 +29,7 @@ public class ObjectiveControl : MonoBehaviour
     private Sprite sBuildingTopDone;
 
     private int objectivesDone = 0;
+    private int currentPowerUp = 0;
 
     //
     // Use this for initialization
@@ -40,7 +41,7 @@ public class ObjectiveControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        checkVictory();
 
     }
     public void changeO(GameObject obj)
@@ -69,12 +70,30 @@ public class ObjectiveControl : MonoBehaviour
     {
         if(objectivesDone >= 4)
         {
-
+            paintMap();
         }
 
     }
 
     public void generatePowerUp()
+    {
+        GameObject controller = GameObject.Find("controller");
+        if ((currentPowerUp % 3) == 0)
+        {
+            controller.GetComponent<PrefabFactory>().instantiatePrefab(controller.GetComponent<PrefabFactory>().prefabArray[1], new Vector3(5.5f,3.5f,0));
+        } else if (((currentPowerUp % 3) == 1)) {
+
+            controller.GetComponent<PrefabFactory>().instantiatePrefab(controller.GetComponent<PrefabFactory>().prefabArray[2], new Vector3(-5f, -1.7f, 0));
+
+        } else if((currentPowerUp % 3) == 2)
+        {
+
+            controller.GetComponent<PrefabFactory>().instantiatePrefab(controller.GetComponent<PrefabFactory>().prefabArray[3], new Vector3(11.7f, -2f, 0));
+        }
+        currentPowerUp++;
+
+    }
+    void paintMap()
     {
 
     }
