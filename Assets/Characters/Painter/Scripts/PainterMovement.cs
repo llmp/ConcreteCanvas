@@ -15,7 +15,7 @@ public class PainterMovement : NPCGenericMovement {
 	}
 	
 	void OnTriggerEnter2D(Collider2D collider){
-		Debug.Log ("Painter Collision: " + collider.name); 
+//		Debug.Log ("Painter Collision: " + collider.name); 
 		if (collider.name.CompareTo("player") == 0){
 			GameObject.Find("cop").GetComponent<CopMovement>().foundSomething();
 		}
