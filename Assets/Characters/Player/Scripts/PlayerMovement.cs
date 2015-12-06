@@ -20,6 +20,11 @@ public class PlayerMovement : MonoBehaviour {
     private bool touchingSpray = false;
     private bool touchingBucket = false;
 
+    //audio
+    private AudioSource aud;
+    [SerializeField] private AudioClip sprayClip;
+    
+
     //Movement
     private bool isWalking = false;
 	[SerializeField]
@@ -37,17 +42,44 @@ public class PlayerMovement : MonoBehaviour {
 	private Animator animator;
     //private []int bag;
     private GameObject aux;
-
+    private float time = 0f;
 
 	void Start () {
 		animator = gameObject.GetComponent<Animator>();
-	}
+        aud = gameObject.GetComponent<AudioSource>();
+    }
 
 	void Update () {
-		getKeyDown();
-		getFacingDirection();
-		getKeyUp();
-		getInteractionKey();
+        
+        if (animator.GetBool("isSpraying") )
+        {
+            if(time <= 5)
+            {
+                time += Time.deltaTime;
+                if (!aud.isPlaying)
+                {
+                    aud.Play();
+                }
+                
+            }
+            else
+            {
+                aud.Stop();
+                paint();
+                animator.SetBool("isSpraying", false);
+                time = 0;
+            }
+            
+        }
+        else
+        {
+            getKeyDown();
+            getFacingDirection();
+            getKeyUp();
+            getInteractionKey();
+
+        }
+
     }
 
 	private void getKeyDown(){
@@ -164,6 +196,7 @@ public class PlayerMovement : MonoBehaviour {
 		animator.SetBool("isWalkingLeft",false);
 		animator.SetBool("isWalkingBot",false);
 		animator.SetBool("isStanding",false);
+        animator.SetBool("isSpraying", false);
 		animator.SetBool(animationStr,true);
 	}
 
@@ -224,19 +257,19 @@ public class PlayerMovement : MonoBehaviour {
             return 0;
         }
     }
-    void paint()
-    {
-        GameObject.Find("controller").GetComponent<ObjectiveControl>().changeO(aux);
+    void startPainting()
+    {   
         Debug.Log(aux.name);
-        if (sprayLoad > 0)
+        if (sprayLoad > 0 && !animator.GetBool("isSpraying") )
         {
-
+            activateAnimation("isSpraying");
             sprayLoad--;
         }
-        else
+        else if(sprayLoad == 0)
         {
             Debug.Log("Out of ink");
         }
+
     }
 
     void dropBucket()
@@ -252,7 +285,7 @@ public class PlayerMovement : MonoBehaviour {
 	private void interact(string str){
 		if (str == "bBuildingO" || str== "sBuildingO" || str == "signO"|| str =="stationO" )
 		{
-			paint();
+			startPainting();
 		} 
 		else if(str == "donut")
 		{
@@ -288,6 +321,11 @@ public class PlayerMovement : MonoBehaviour {
             Debug.Log("Error");
         }
 	}
+
+    private void paint()
+    {
+        GameObject.Find("controller").GetComponent<ObjectiveControl>().changeO(aux);
+    }
 
     void pickUpItem(){
 //       GameObject obj= GameObject.Find("cop");

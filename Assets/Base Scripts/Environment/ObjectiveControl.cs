@@ -28,6 +28,8 @@ public class ObjectiveControl : MonoBehaviour
     [SerializeField]
     private Sprite sBuildingTopDone;
 
+    private int objectivesDone = 0;
+
     //
     // Use this for initialization
     void Start()
@@ -60,11 +62,20 @@ public class ObjectiveControl : MonoBehaviour
             obj.GetComponent<SpriteRenderer>().sprite = sBuildingDone;
             GameObject.Find("sBuildingTopO").GetComponent<SpriteRenderer>().sprite = sBuildingTopDone;
         }
+        objectivesDone++;
 
     }
     public void checkVictory()
     {
+        if(objectivesDone >= 4)
+        {
 
+        }
+
+    }
+
+    public void generatePowerUp()
+    {
 
     }
 }
