@@ -7,8 +7,6 @@ public class SoundController : MonoBehaviour {
     [SerializeField] private AudioClip sound1;
     [SerializeField] private AudioClip sound2;
     // Use this for initialization
-    
-    [SerializeField] private AudioClip sprayClip;
     private AudioSource aSource;
 
     void Start () {
@@ -27,4 +25,5 @@ public class SoundController : MonoBehaviour {
         aSource.clip = sound2;
         aSource.Play();
     }
+
 }
