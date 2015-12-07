@@ -20,6 +20,9 @@ public class PlayerMovement : MonoBehaviour {
     private bool touchingSpray = false;
     private bool touchingBucket = false;
 
+    //powerups on
+    private bool onSkate = false;
+
     //audio
     private AudioSource aud;
     [SerializeField] private AudioClip sprayClip;
@@ -29,7 +32,8 @@ public class PlayerMovement : MonoBehaviour {
     private bool isWalking = false;
 	[SerializeField]
 	private float moveSpeed = 0.02f;
-	private short walkingDirection;
+    private float baseMoveSpeed = 0.02f;
+    private short walkingDirection;
 
 	//BorderCheck
 	private bool canWalkUp = true;
@@ -43,8 +47,9 @@ public class PlayerMovement : MonoBehaviour {
     //private []int bag;
     private GameObject aux;
     private float time = 0f;
+    private float skateTime = 0f;
 
-	void Start () {
+    void Start () {
 		animator = gameObject.GetComponent<Animator>();
         aud = gameObject.GetComponent<AudioSource>();
     }
@@ -53,14 +58,13 @@ public class PlayerMovement : MonoBehaviour {
 		getGridPosition();
         if (animator.GetBool("isSpraying") )
         {
-            if(time <= 5)
+            if (time <= 5)
             {
                 time += Time.deltaTime;
                 if (!aud.isPlaying)
                 {
                     aud.Play();
                 }
-                
             }
             else
             {
@@ -69,7 +73,6 @@ public class PlayerMovement : MonoBehaviour {
                 animator.SetBool("isSpraying", false);
                 time = 0;
             }
-            
         }
         else
         {
@@ -78,8 +81,16 @@ public class PlayerMovement : MonoBehaviour {
             getKeyUp();
             getInteractionKey();
 
+            if (skateTime < 7f && onSkate)
+            {
+                skateTime += Time.deltaTime;
+            }
+            else if (skateTime >= 7)
+            {
+                usingSkate();
+                
+            }
         }
-
     }
 
 	private void getKeyDown(){
@@ -297,11 +308,11 @@ public class PlayerMovement : MonoBehaviour {
         }
         else if(str == "skateboard(Clone)")
         {
-            gameObject.GetComponent<PlayerMovement>().moveSpeed *= 3;
+            
             GameObject.Destroy(GameObject.Find("skateboard(Clone)"));
             touchingSkate = false;
-
-            GameObject.Find("controller").GetComponent<SoundController>().changeAudio(); 
+            usingSkate();
+            
         }
         else if(str == "bucket")
         {
@@ -321,6 +332,27 @@ public class PlayerMovement : MonoBehaviour {
             Debug.Log("Error");
         }
 	}
+    private void usingSkate()
+    {
+        onSkate = true;
+        if (skateTime < 7f)
+        {
+            setSpeed(2);
+        }
+        else
+        {
+            onSkate = false;
+            moveSpeed = baseMoveSpeed;
+            skateTime = 0; 
+        }
+        GameObject.Find("controller").GetComponent<SoundController>().changeAudio();
+    }
+
+    //speed * number
+    private void setSpeed(int number)
+    {
+        moveSpeed *= number;
+    }
 
     private void paint()
     {

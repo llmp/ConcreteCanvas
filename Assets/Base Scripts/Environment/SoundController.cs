@@ -24,7 +24,16 @@ public class SoundController : MonoBehaviour {
 
     public void changeAudio()
     {
-        aSource.clip = sound2;
-        aSource.Play();
+        if (aSource.clip == sound1)
+        {
+            aSource.clip = sound2;
+            aSource.Play();
+        }
+        else if(aSource.clip == sound2)
+        {
+            aSource.clip = sound1;
+            aSource.Play();
+        }
+        
     }
 }
