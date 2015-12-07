@@ -28,8 +28,13 @@ public class ObjectiveControl : MonoBehaviour
     [SerializeField]
     private Sprite sBuildingTopDone;
 
+    [SerializeField]
+    private Sprite mapVictory;
+
     private int objectivesDone = 0;
     private int currentPowerUp = 0;
+
+
 
     //
     // Use this for initialization
@@ -68,7 +73,7 @@ public class ObjectiveControl : MonoBehaviour
     }
     public void checkVictory()
     {
-        if(objectivesDone >= 4)
+        if (objectivesDone >= 4)
         {
             paintMap();
         }
@@ -80,15 +85,18 @@ public class ObjectiveControl : MonoBehaviour
         GameObject controller = GameObject.Find("controller");
         if ((currentPowerUp % 3) == 0)
         {
-            controller.GetComponent<PrefabFactory>().instantiatePrefab(controller.GetComponent<PrefabFactory>().prefabArray[1], new Vector3(5.5f,3.5f,0));
-        } else if (((currentPowerUp % 3) == 1)) {
-
-            controller.GetComponent<PrefabFactory>().instantiatePrefab(controller.GetComponent<PrefabFactory>().prefabArray[2], new Vector3(-5f, -1.7f, 0));
-
-        } else if((currentPowerUp % 3) == 2)
+            controller.GetComponent<PrefabFactory>().instantiatePrefab(controller.GetComponent<PrefabFactory>().prefabArray[1], new Vector3(12.3f, -5.5f, 0));
+        }
+        else if (((currentPowerUp % 3) == 1))
         {
 
-            controller.GetComponent<PrefabFactory>().instantiatePrefab(controller.GetComponent<PrefabFactory>().prefabArray[3], new Vector3(11.7f, -2f, 0));
+            controller.GetComponent<PrefabFactory>().instantiatePrefab(controller.GetComponent<PrefabFactory>().prefabArray[2], new Vector3(1f, -11f, 0));
+
+        }
+        else if ((currentPowerUp % 3) == 2)
+        {
+
+            controller.GetComponent<PrefabFactory>().instantiatePrefab(controller.GetComponent<PrefabFactory>().prefabArray[3], new Vector3(18f, -11f, 0));
         }
         currentPowerUp++;
 
@@ -96,5 +104,8 @@ public class ObjectiveControl : MonoBehaviour
     void paintMap()
     {
 
+        GameObject.Destroy(GameObject.Find("map objects"));
+        GameObject.Destroy(GameObject.Find("objectives"));
+        GameObject.Find("background").GetComponent<SpriteRenderer>().sprite = mapVictory;
     }
 }
