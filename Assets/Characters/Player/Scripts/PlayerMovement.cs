@@ -390,7 +390,6 @@ public class PlayerMovement : MonoBehaviour {
         {
             touchingBBuilding = false;
         }
-
         if (collider.name == "signO")
         {
             touchingSignO = false;
@@ -443,6 +442,7 @@ public class PlayerMovement : MonoBehaviour {
 		this.canWalkBottom = true;
 		this.canWalkLeft = true;
 	}
+
 
 
 }
