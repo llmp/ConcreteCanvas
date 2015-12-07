@@ -15,13 +15,14 @@ public class CopMovement : NPCGenericMovement {
 
 	void Update(){
         
-        lookFor(GameObject.Find("player").transform.position);
+        
         if (isEating)
         {
             eatDonut();
         }
         else
         {
+            lookFor(GameObject.Find("player").transform.position);
             applyMotion();
         }
     }

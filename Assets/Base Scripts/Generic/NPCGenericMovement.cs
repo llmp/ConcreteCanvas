@@ -216,6 +216,7 @@ public class NPCGenericMovement : MonoBehaviour {
 		}
 	}
 
+
 	
 	public void foundSomething(){
 		Vector3 instantiateAt = transform.position + new Vector3(0.2f,0.6f,0);
