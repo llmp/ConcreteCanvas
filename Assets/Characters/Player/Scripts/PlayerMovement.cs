@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 	void Update () {
-        
+		getGridPosition();
         if (animator.GetBool("isSpraying") )
         {
             if(time <= 5)
@@ -443,6 +443,13 @@ public class PlayerMovement : MonoBehaviour {
 		this.canWalkLeft = true;
 	}
 
+	private short[] getGridPosition(){
+		short[] playerGridPosition =  new short[2];
+		Vector3 playerPosition =this.transform.position;
 
+		Debug.Log("Player Position:" + (playerPosition.x * 100) + "," + (playerPosition.y * 100));
+
+		return playerGridPosition;
+	}
 
 }
