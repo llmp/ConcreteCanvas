@@ -23,10 +23,12 @@ public class PlayerMovement : MonoBehaviour {
     //powerups on
     private bool onSkate = false;
 
+
     //audio
     private AudioSource aud;
     [SerializeField] private AudioClip sprayClip;
-    
+    [SerializeField] private Sprite canGrey;
+    [SerializeField] private Sprite canColored;
 
     //Movement
     private bool isWalking = false;
@@ -322,7 +324,7 @@ public class PlayerMovement : MonoBehaviour {
         else if (str == "spray(Clone)")
         {
             sprayLoad = 2;
-            Debug.Log(sprayLoad + "loads");
+            emptyCan();
             GameObject.Destroy(GameObject.Find("spray(Clone)"));
             touchingSpray = false;
         }
@@ -358,6 +360,25 @@ public class PlayerMovement : MonoBehaviour {
     {
         GameObject.Find("controller").GetComponent<ObjectiveControl>().changeO(aux);
         GameObject.Find("controller").GetComponent<ObjectiveControl>().generatePowerUp();
+        emptyCan();
+    }
+    private void emptyCan()
+    {
+        if (sprayLoad == 1)
+        {
+            GameObject.Find("sprayCanUI2").GetComponent<SpriteRenderer>().sprite = canGrey;
+        }
+        else if (sprayLoad == 0)
+        {
+
+            GameObject.Find("sprayCanUI1").GetComponent<SpriteRenderer>().sprite = canGrey;
+        }
+        else if (sprayLoad == 2)
+        {
+
+            GameObject.Find("sprayCanUI1").GetComponent<SpriteRenderer>().sprite = canColored;
+            GameObject.Find("sprayCanUI2").GetComponent<SpriteRenderer>().sprite = canColored;
+        }
     }
 
     void pickUpItem(){
