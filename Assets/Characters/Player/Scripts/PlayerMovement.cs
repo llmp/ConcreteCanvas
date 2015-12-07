@@ -447,12 +447,10 @@ public class PlayerMovement : MonoBehaviour {
 		short[] playerGridPosition =  new short[2];
 		Vector3 playerPosition =this.transform.position;
 		short x = (short) Mathf.Ceil(playerPosition.x * 100);
-		short y = (short) Mathf.Ceil(playerPosition.y * 100);
+		short y = (short) (Mathf.Ceil(playerPosition.y * 100) * -1);
 
 		playerGridPosition[0] = (short) Mathf.Ceil(x/63);
 		playerGridPosition[1] = (short) Mathf.Ceil(y/63);
-
-		Debug.Log("Player Position:" + playerGridPosition[0] + "," + playerGridPosition[1]);	
 
 		return playerGridPosition;
 	}
