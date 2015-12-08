@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PrefabFactory : MonoBehaviour {
 	
-	public GameObject[] prefabArray = new GameObject[4];
+	public GameObject[] prefabArray = new GameObject[5];
+
 	public bool instanceExists = false;
 
 

@@ -34,6 +34,7 @@ public class ObjectiveControl : MonoBehaviour
     [SerializeField]
     private Sprite mapVictory;
 
+
     private int objectivesDone = 0;
     private int currentPowerUp = 0;
 
@@ -109,6 +110,7 @@ public class ObjectiveControl : MonoBehaviour
         if (objectivesDone >= 4)
         {
             paintMap();
+            objectivesDone = -1;
         }
 
     }
@@ -142,7 +144,9 @@ public class ObjectiveControl : MonoBehaviour
         GameObject.Destroy(GameObject.Find("map objects"));
         GameObject.Destroy(GameObject.Find("objectives"));
         GameObject.Find("background").GetComponent<SpriteRenderer>().sprite = mapVictory;
-
+        GameObject.Find("controller").GetComponent<PrefabFactory>().instantiatePrefab(GameObject.Find("controller").GetComponent<PrefabFactory>().prefabArray[4], new Vector3(11.55f, -2f, 0));
+        GameObject.Find("painter").GetComponent<NPCGenericMovement>().turnOffMovement();
+        GameObject.Find("cop").GetComponent<NPCGenericMovement>().turnOffMovement();
     }
 
     public bool verifyPainted(GameObject obj)

@@ -19,10 +19,10 @@ public class NPCGenericMovement : MonoBehaviour {
 	private bool movingLeft = false;
 	private bool movingUp = false;
 	private Animator animator;
+    public bool autoMotion = true;
 
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 
 	}
 	
@@ -85,8 +85,12 @@ public class NPCGenericMovement : MonoBehaviour {
 			gameObject.GetComponent<BoundariesChecker>().unflagAllTouchChecks();
 		}
 	}
-	
-	public void moveCharacter(bool up, bool right, bool left){
+    public void turnOffMovement()
+    {
+        autoMotion = false;
+    }
+
+    public void moveCharacter(bool up, bool right, bool left){
 		bool done = false;
 		while(!done){
 			if (up) {

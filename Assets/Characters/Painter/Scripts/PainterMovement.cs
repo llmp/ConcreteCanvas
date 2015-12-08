@@ -15,7 +15,7 @@ public class PainterMovement : NPCGenericMovement {
     private bool movingLeft = false;
     private bool movingUp = false;
     */
-    private bool autoMotion = true;
+    
     private GameObject auxObject;
 
     // Use this for initialization
@@ -153,6 +153,7 @@ public class PainterMovement : NPCGenericMovement {
         }
     }
     */
+    
     public void repaint(GameObject obj)
     {
         //moveTowardsObject(obj);

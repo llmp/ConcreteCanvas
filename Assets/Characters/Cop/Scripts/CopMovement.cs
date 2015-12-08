@@ -16,11 +16,11 @@ public class CopMovement : NPCGenericMovement {
 	void Update(){
         
         
-        if (isEating)
+        if (isEating )
         {
             eatDonut();
         }
-        else
+        else if(autoMotion)
         {
             lookFor(GameObject.Find("player").transform.position);
             applyMotion();
