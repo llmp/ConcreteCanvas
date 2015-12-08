@@ -51,11 +51,10 @@ public class PainterMovement : NPCGenericMovement {
                 lookFor(objective);
                 if (isChasing)
                 {
-                    Debug.Log("1");
                     if (GameObject.Find("controller").GetComponent<ObjectiveControl>().verifyPainted(objective))
                     {
                         objAux = objective;
-                        turnOffMovement();
+                        setMovement(false);
                         break;
                     }
                     isChasing = false;
@@ -78,7 +77,7 @@ public class PainterMovement : NPCGenericMovement {
                 {
                     repaint(objAux);
                     time = 0;
-                    turnOnMovement();
+                    setMovement(true);
 
                 }
                 //repaint();

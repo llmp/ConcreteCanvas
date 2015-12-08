@@ -5,9 +5,9 @@ using System;
 public class NPCGenericMovement : MonoBehaviour {
 	
 	[SerializeField]
-	private short fieldOfViewFront = 3;
+	protected short fieldOfViewFront = 3;
 	[SerializeField]
-	private float fieldOfViewSides = 0.3f;
+	protected float fieldOfViewSides = 0.3f;
 	[SerializeField]
 	private float moveSpeed = 0.02f;
 	[SerializeField]
@@ -19,6 +19,7 @@ public class NPCGenericMovement : MonoBehaviour {
 	private bool movingRight = false;
 	private bool movingLeft = false;
 	private bool movingUp = false;
+	private bool movingBot = false;
 	private Animator animator;
     public bool autoMotion = true;
 
@@ -54,23 +55,26 @@ public class NPCGenericMovement : MonoBehaviour {
 				movingUp = true;
 				movingRight = false;
 				movingLeft = false;
+				movingBot = false;
 			}
 			else if (opt == 2){
 				movingUp = false;
 				movingRight = true;
 				movingLeft = false;
+				movingBot = false;
 				
 			}
 			else if (opt == 3){
 				movingUp = false;
 				movingRight = false;
 				movingLeft = false;
-				
+				movingBot = true;
 			}
 			else if (opt == 4){
 				movingUp = false;
 				movingRight = false;
 				movingLeft = true;
+				movingBot = false;
 				
 			}
 		}
@@ -78,7 +82,7 @@ public class NPCGenericMovement : MonoBehaviour {
 		if (moveCount < frameCount){
 			moveCount ++;
 			gameObject.GetComponent<BoundariesChecker>().checkBorders(transform.position);
-			moveCharacter (movingUp,movingRight,movingLeft);
+			moveCharacter ();
 		}
 		
 		else {
@@ -86,19 +90,11 @@ public class NPCGenericMovement : MonoBehaviour {
 			gameObject.GetComponent<BoundariesChecker>().unflagAllTouchChecks();
 		}
 	}
-    public void turnOffMovement()
-    {
-            autoMotion = false;
-    }
-    public void turnOnMovement()
-    {
-        autoMotion = true;
-    }
 
-    public void moveCharacter(bool up, bool right, bool left){
+    public void moveCharacter(){
 		bool done = false;
 		while(!done){
-			if (up) {
+			if (movingUp) {
 				if (!gameObject.GetComponent<BoundariesChecker>().isTouchingTop){
 					activateAnimation("isWalkingUp");			
 					transform.position += new Vector3(0,moveSpeed,0);
@@ -106,10 +102,10 @@ public class NPCGenericMovement : MonoBehaviour {
 				}
 				else {
 					movingUp = false;
-					up = false;
+					movingBot = true;
 				}
 			}
-			else if (right){
+			else if (movingRight){
 				if (!gameObject.GetComponent<BoundariesChecker>().isTouchingRight){
 					activateAnimation("isWalkingRight");			
 					transform.position += new Vector3(moveSpeed,0,0);
@@ -118,12 +114,9 @@ public class NPCGenericMovement : MonoBehaviour {
 				else {
 					movingRight = false;
 					movingLeft = true;
-					right = false;
-					left = true;
-					
 				}
 			}
-			else if (left){
+			else if (movingLeft){
 				if (!gameObject.GetComponent<BoundariesChecker>().isTouchingLeft){
 					activateAnimation("isWalkingLeft");		
 					transform.position += new Vector3(-(moveSpeed),0,0);
@@ -132,11 +125,9 @@ public class NPCGenericMovement : MonoBehaviour {
 				else {
 					movingLeft = false;
 					movingRight = true;
-					left = false;
-					right = true;
 				}
 			}
-			else {
+			else if (movingBot){
 				if (!gameObject.GetComponent<BoundariesChecker>().isTouchingBottom){
 					activateAnimation("isWalkingBot");
 					transform.position += new Vector3(0,-(moveSpeed),0);
@@ -144,7 +135,7 @@ public class NPCGenericMovement : MonoBehaviour {
 				}
 				else {
 					movingUp = true;
-					up = true;
+					movingBot = false;
 				}
 			}
 		}
@@ -215,7 +206,7 @@ public class NPCGenericMovement : MonoBehaviour {
 			}
 		}
 		
-		else {
+		else if (movingBot){
 			yViewMin = currentPosition.y;
 			yViewMax = currentPosition.y - fieldOfViewFront;
 			xViewMin = currentPosition.x - fieldOfViewSides;
@@ -268,7 +259,9 @@ public class NPCGenericMovement : MonoBehaviour {
 			if (rand == 0){
 				movingUp = true;
 			}
-			
+			else {
+				movingBot = true;
+			}
 		}
 		
 		else if (movingLeft){
@@ -278,8 +271,12 @@ public class NPCGenericMovement : MonoBehaviour {
 			if (rand == 0){
 				movingUp = true;
 			}
+			else {
+				movingBot = true;
+			}
 		}
-		else {
+
+		else if (movingBot){
 			int rand = getRandInt();
 			
 			if (rand == 0){
@@ -293,34 +290,42 @@ public class NPCGenericMovement : MonoBehaviour {
 
 	protected void gotoPosition(Vector3 objectivePosition){
 		Vector3 npcPosition = this.transform.position;
-		string test = movingUp + "," + movingRight + "," + movingLeft + ",";
-		unflagAllMovementDirections();
 
-		test += "after:" + movingUp + "," + movingRight + "," + movingLeft;
-				
-		if (npcPosition.x != objectivePosition.x){
-			if (npcPosition.x < objectivePosition.x){
+		float factor = 0.3f;
+//		if (npcPosition.x != objectivePosition.x){
+			if (npcPosition.x + factor < objectivePosition.x){
+			unflagAllMovementDirections();
 				movingRight = true;
 			}
 			
-			else if (npcPosition.x > objectivePosition.x){
+			if (npcPosition.x - factor > objectivePosition.x){
+			unflagAllMovementDirections();
 				movingLeft = true;
 			}
-		}
-		else if (npcPosition.y != objectivePosition.y){
-			if (npcPosition.y < objectivePosition.y){
+//		}
+//		if ( && npcPosition.y - factor > objectivePosition.y){
+			if (npcPosition.y +factor < objectivePosition.y){
+			unflagAllMovementDirections();
 				movingUp = true;
 			}
-		}
-		test += " after all:" + movingUp + "," + movingRight + "," + movingLeft;
-		Debug.Log(test);
-		moveCharacter(movingUp,movingRight,movingLeft);
+
+			if (npcPosition.y - factor > objectivePosition.y){
+			unflagAllMovementDirections();
+				movingBot = true;
+			}
+//		}
+		moveCharacter();
 	}
 
 	private void unflagAllMovementDirections(){
 		this.movingUp = false;
 		this.movingRight = false;
 		this.movingLeft = false;
+	}
+
+	public void setMovement(bool status)
+    {
+        autoMotion = status;
 	}
 
 	private int getRandInt(){

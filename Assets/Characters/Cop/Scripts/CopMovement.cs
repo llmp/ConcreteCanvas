@@ -8,7 +8,7 @@ public class CopMovement : NPCGenericMovement {
     private float time = 0;
     private AudioSource audioSource;
 	[SerializeField]
-	private float catchableArea = 0.3f;
+	private float catchableArea = 10f;
 	
 	void Start(){
 		initializeAnimator(gameObject.GetComponent<Animator>());
@@ -17,26 +17,26 @@ public class CopMovement : NPCGenericMovement {
 
 	void Update(){
 		GameObject player = GameObject.Find("player");
+//		catchPlayer(player.transform.position);
 		this.lookFor(player);
-		catchPlayer(player.transform.position);
         if (isEating )
         {
             eatDonut();
         }
         else if(autoMotion)
-        {
-			if (isChasing){
+//        {
+//			if (isChasing){
 				chasePlayer();
-			}
-//			else{
-				applyMotion();
 //			}
-        }
+//			else{
+//				applyMotion();
+//			}
+//        }
     }
 
 	private void lookFor(GameObject objective){
 		base.lookFor(objective);
-//		catchPlayer(objective.transform.position);
+		catchPlayer(objective.transform.position);
 	}
 
 	public void eatDonut(){
@@ -56,10 +56,10 @@ public class CopMovement : NPCGenericMovement {
 
 	private void catchPlayer(Vector3 objectivePosition){
 		Vector3 copPosition = this.transform.position;
-		float xMax = copPosition.x + catchableArea;
-		float xMin = copPosition.x - catchableArea;
-		float yMax = copPosition.y + catchableArea;
-		float yMin = copPosition.y - catchableArea;
+		float xMax = copPosition.x + catchableArea * 3;
+		float xMin = copPosition.x - catchableArea * 3;
+		float yMax = copPosition.y + catchableArea * 3;
+		float yMin = copPosition.y - catchableArea * 3;
 		
 		if (objectivePosition.x >= xMin && objectivePosition.x <= xMax && objectivePosition.y >= yMin && objectivePosition.y <= yMax){
 			Application.LoadLevel("loseScene");
@@ -77,14 +77,11 @@ public class CopMovement : NPCGenericMovement {
 		//For now...
 		Vector3 playerPosition = GameObject.Find("player").transform.position;
 		
-//		gotoPosition(playerPosition);
+		gotoPosition(playerPosition);
 	}
 
 	void OnTriggerEnter2D(Collider2D collider){
-		if (collider.name.CompareTo("player") == 1){
-		}
-		else {
 			onCollisionChangeDirection();
-		}
 	}
 }
+

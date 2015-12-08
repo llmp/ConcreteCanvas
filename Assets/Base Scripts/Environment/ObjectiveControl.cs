@@ -159,8 +159,8 @@ public class ObjectiveControl : MonoBehaviour
         //GameObject.Destroy(GameObject.Find("UI"));
         GameObject.Find("background").GetComponent<SpriteRenderer>().sprite = mapVictory;
         GameObject.Find("controller").GetComponent<PrefabFactory>().instantiatePrefab(GameObject.Find("controller").GetComponent<PrefabFactory>().prefabArray[4], new Vector3(11.55f, -2f, 0));
-        GameObject.Find("painter").GetComponent<NPCGenericMovement>().turnOffMovement();
-        GameObject.Find("cop").GetComponent<NPCGenericMovement>().turnOffMovement();
+        GameObject.Find("painter").GetComponent<NPCGenericMovement>().setMovement(false);
+        GameObject.Find("cop").GetComponent<NPCGenericMovement>().setMovement(false);
     }
 
     public bool verifyPainted(GameObject obj)

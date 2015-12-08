@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour {
     //Movement
     private bool isWalking = false;
 	[SerializeField]
-	private float moveSpeed = 0.02f;
+	private float moveSpeed = 0.039375f;
     private float baseMoveSpeed = 0.02f;
     private short walkingDirection;
 
@@ -272,7 +272,6 @@ public class PlayerMovement : MonoBehaviour {
     }
     void startPainting()
     {   
-        Debug.Log(aux.name);
         if (sprayLoad > 0 && !animator.GetBool("isSpraying") )
         {
             activateAnimation("isSpraying");
@@ -280,7 +279,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         else if(sprayLoad == 0)
         {
-            Debug.Log("Out of ink");
+//            Debug.Log("Out of ink");
         }
 
     }
@@ -327,11 +326,6 @@ public class PlayerMovement : MonoBehaviour {
             emptyCan();
             GameObject.Destroy(GameObject.Find("spray(Clone)"));
             touchingSpray = false;
-        }
-
-        else
-        {
-            Debug.Log("Error");
         }
 	}
     private void usingSkate()
