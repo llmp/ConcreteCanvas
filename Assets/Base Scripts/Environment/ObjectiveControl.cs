@@ -142,7 +142,17 @@ public class ObjectiveControl : MonoBehaviour
     {
         GameObject.Find("Main Camera").GetComponent<CameraController>().setVictoryCamera();
         GameObject.Destroy(GameObject.Find("map objects"));
-        GameObject.Destroy(GameObject.Find("objectives"));
+        GameObject.Find("bBuildingO").GetComponent<SpriteRenderer>().enabled = false;
+        GameObject.Find("signO").GetComponent<SpriteRenderer>().enabled = false;
+        GameObject.Find("sBuildingO").GetComponent<SpriteRenderer>().enabled = false;
+        GameObject.Find("sBuildingTopO").GetComponent<SpriteRenderer>().enabled = false;
+        GameObject.Find("stationO").GetComponent<SpriteRenderer>().enabled = false;
+
+
+
+
+        //GameObject.Destroy(GameObject.Find("objectives"));
+        //GameObject.Destroy(GameObject.Find("UI"));
         GameObject.Find("background").GetComponent<SpriteRenderer>().sprite = mapVictory;
         GameObject.Find("controller").GetComponent<PrefabFactory>().instantiatePrefab(GameObject.Find("controller").GetComponent<PrefabFactory>().prefabArray[4], new Vector3(11.55f, -2f, 0));
         GameObject.Find("painter").GetComponent<NPCGenericMovement>().turnOffMovement();

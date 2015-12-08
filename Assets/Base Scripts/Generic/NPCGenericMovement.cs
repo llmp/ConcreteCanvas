@@ -88,7 +88,11 @@ public class NPCGenericMovement : MonoBehaviour {
 	}
     public void turnOffMovement()
     {
-        autoMotion = false;
+            autoMotion = false;
+    }
+    public void turnOnMovement()
+    {
+        autoMotion = true;
     }
 
     public void moveCharacter(bool up, bool right, bool left){
@@ -228,7 +232,7 @@ public class NPCGenericMovement : MonoBehaviour {
 	public void foundSomething(){
 		Vector3 instantiateAt = transform.position + new Vector3(0.2f,0.6f,0);
 		GameObject controller = GameObject.Find("controller");
-//		this.isChasing = true;
+ 		this.isChasing = true;
 		if (!controller.GetComponent<PrefabFactory>().instanceExists){
 			controller.GetComponent<PrefabFactory>()
 				.instantiatePrefabBornToDie(controller.GetComponent<PrefabFactory>().prefabArray[0],
