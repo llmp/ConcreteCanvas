@@ -16,7 +16,9 @@ public class CopMovement : NPCGenericMovement {
     }
 
 	void Update(){
-		this.lookFor(GameObject.Find("player"));
+		GameObject player = GameObject.Find("player");
+		this.lookFor(player);
+		catchPlayer(player.transform.position);
         if (isEating )
         {
             eatDonut();
@@ -24,11 +26,11 @@ public class CopMovement : NPCGenericMovement {
         else if(autoMotion)
         {
 			if (isChasing){
-//				chasePlayer();
+				chasePlayer();
 			}
-			else{
+//			else{
 				applyMotion();
-			}
+//			}
         }
     }
 
@@ -60,7 +62,7 @@ public class CopMovement : NPCGenericMovement {
 		float yMin = copPosition.y - catchableArea;
 		
 		if (objectivePosition.x >= xMin && objectivePosition.x <= xMax && objectivePosition.y >= yMin && objectivePosition.y <= yMax){
-			Debug.Log("PLAYER LOSES!!!!!!");
+			Application.LoadLevel("loseScene");
 		}
 	}
 
@@ -75,7 +77,7 @@ public class CopMovement : NPCGenericMovement {
 		//For now...
 		Vector3 playerPosition = GameObject.Find("player").transform.position;
 		
-		gotoPosition(playerPosition);
+//		gotoPosition(playerPosition);
 	}
 
 	void OnTriggerEnter2D(Collider2D collider){
