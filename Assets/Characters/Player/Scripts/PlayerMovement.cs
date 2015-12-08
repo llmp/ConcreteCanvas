@@ -496,7 +496,7 @@ public class PlayerMovement : MonoBehaviour {
 		this.canWalkLeft = true;
 	}
 
-	private short[] getGridPosition(){
+	public short[] getGridPosition(){
 		short[] playerGridPosition =  new short[2];
 		Vector3 playerPosition =this.transform.position;
 		short x = (short) Mathf.Ceil(playerPosition.x * 100);

@@ -6,46 +6,76 @@ public class CopMovement : NPCGenericMovement {
 
     private bool isEating = false;
     private float time = 0;
-    private AudioSource aSource;
+    private AudioSource audioSource;
+	[SerializeField]
+	private float catchableArea = 0.3f;
 	
 	void Start(){
 		initializeAnimator(gameObject.GetComponent<Animator>());
-        aSource = gameObject.GetComponent<AudioSource>();
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
 	void Update(){
-        
-        
+		this.lookFor(GameObject.Find("player"));
         if (isEating )
         {
             eatDonut();
         }
         else if(autoMotion)
         {
-            lookFor(GameObject.Find("player").transform.position);
-            applyMotion();
+			if (isChasing){
+//				chasePlayer();
+			}
+			else{
+				applyMotion();
+			}
         }
     }
 
+	private void lookFor(GameObject objective){
+		base.lookFor(objective);
+//		catchPlayer(objective.transform.position);
+	}
+
 	public void eatDonut(){
         isEating = true;
-        Debug.Log("The cop is eating a delicious donut");
         time += Time.deltaTime;
 
-        if (!aSource.isPlaying)
+        if (!audioSource.isPlaying)
         {
-            aSource.Play();
+            audioSource.Play();
         }
-
         if (time > 5)
         {
-            //          if()
-            
             time = 0;
             isEating = false;
-        }
-        
-        
+        }   
+	}
+
+	private void catchPlayer(Vector3 objectivePosition){
+		Vector3 copPosition = this.transform.position;
+		float xMax = copPosition.x + catchableArea;
+		float xMin = copPosition.x - catchableArea;
+		float yMax = copPosition.y + catchableArea;
+		float yMin = copPosition.y - catchableArea;
+		
+		if (objectivePosition.x >= xMin && objectivePosition.x <= xMax && objectivePosition.y >= yMin && objectivePosition.y <= yMax){
+			Debug.Log("PLAYER LOSES!!!!!!");
+		}
+	}
+
+	private void chasePlayer(){
+		// Position to refer on csv file
+		short[] playerGridPosition = GameObject.Find("player").GetComponent<PlayerMovement>().getGridPosition();
+		
+		//This will be filled with the information acquired from the csv file.
+		//This array will have all the moves for the cop to be at the desired position
+		//		short[] nextMoves;
+		
+		//For now...
+		Vector3 playerPosition = GameObject.Find("player").transform.position;
+		
+		gotoPosition(playerPosition);
 	}
 
 	void OnTriggerEnter2D(Collider2D collider){

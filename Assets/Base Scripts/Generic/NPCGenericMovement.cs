@@ -15,6 +15,7 @@ public class NPCGenericMovement : MonoBehaviour {
 	[SerializeField]
 	protected short frameCount = 180;
 
+	protected bool isChasing = false;
 	private bool movingRight = false;
 	private bool movingLeft = false;
 	private bool movingUp = false;
@@ -166,8 +167,10 @@ public class NPCGenericMovement : MonoBehaviour {
 			return true;
 	}
 
-	protected void lookFor(Vector3 objectivePosition){
-		
+	protected void lookFor(GameObject objective){
+
+		Vector3 objectivePosition = objective.transform.position;
+
 		float yViewMin;
 		float yViewMax;
 		float xViewMin;
@@ -225,6 +228,7 @@ public class NPCGenericMovement : MonoBehaviour {
 	public void foundSomething(){
 		Vector3 instantiateAt = transform.position + new Vector3(0.2f,0.6f,0);
 		GameObject controller = GameObject.Find("controller");
+//		this.isChasing = true;
 		if (!controller.GetComponent<PrefabFactory>().instanceExists){
 			controller.GetComponent<PrefabFactory>()
 				.instantiatePrefabBornToDie(controller.GetComponent<PrefabFactory>().prefabArray[0],
@@ -281,9 +285,40 @@ public class NPCGenericMovement : MonoBehaviour {
 				movingLeft = true;
 			}
 		}
-
 	}
-	
+
+	protected void gotoPosition(Vector3 objectivePosition){
+		Vector3 npcPosition = this.transform.position;
+		string test = movingUp + "," + movingRight + "," + movingLeft + ",";
+		unflagAllMovementDirections();
+
+		test += "after:" + movingUp + "," + movingRight + "," + movingLeft;
+				
+		if (npcPosition.x != objectivePosition.x){
+			if (npcPosition.x < objectivePosition.x){
+				movingRight = true;
+			}
+			
+			else if (npcPosition.x > objectivePosition.x){
+				movingLeft = true;
+			}
+		}
+		else if (npcPosition.y != objectivePosition.y){
+			if (npcPosition.y < objectivePosition.y){
+				movingUp = true;
+			}
+		}
+		test += " after all:" + movingUp + "," + movingRight + "," + movingLeft;
+		Debug.Log(test);
+		moveCharacter(movingUp,movingRight,movingLeft);
+	}
+
+	private void unflagAllMovementDirections(){
+		this.movingUp = false;
+		this.movingRight = false;
+		this.movingLeft = false;
+	}
+
 	private int getRandInt(){
 		int seed = unchecked(DateTime.Now.Ticks.GetHashCode());
 		System.Random random = new System.Random(seed);
