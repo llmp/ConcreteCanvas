@@ -21,6 +21,7 @@ public class PainterMovement : NPCGenericMovement {
     private GameObject obj3;
     private GameObject obj4;
     private GameObject objAux;
+    public bool working = true;
 
     private GameObject [] objectives = new GameObject[4];
     private float time = 0f;
@@ -39,43 +40,54 @@ public class PainterMovement : NPCGenericMovement {
         objectives[3] = obj4;
     }
 
-    
+
 
     // Update is called once per frame
-    void Update () {
-        foreach (GameObject objective in objectives)
+    void Update() {
+        if (working)
         {
-            lookFor(objective);
-            if(isChasing){
-                Debug.Log("1");
-                if (GameObject.Find("controller").GetComponent<ObjectiveControl>().verifyPainted(objective))
+            foreach (GameObject objective in objectives)
+            {
+                lookFor(objective);
+                if (isChasing)
                 {
-                    objAux = objective;
-                    turnOffMovement();
-                    break;
+                    Debug.Log("1");
+                    if (GameObject.Find("controller").GetComponent<ObjectiveControl>().verifyPainted(objective))
+                    {
+                        objAux = objective;
+                        turnOffMovement();
+                        break;
+                    }
+                    isChasing = false;
+
                 }
-                isChasing = false;
 
             }
-            
-        }
-        
-        if (autoMotion)
-        {
-            applyMotion();
+
+            if (autoMotion)
+            {
+                applyMotion();
+            }
+            else
+            {
+                if (time <= 3f)
+                {
+                    time += Time.deltaTime;
+                }
+                else
+                {
+                    repaint(objAux);
+                    time = 0;
+                    turnOnMovement();
+
+                }
+                //repaint();
+                //moveTowardsObject();
+            }
         }
         else
         {
-            if(time <= 3f)
-            {
-                time += Time.deltaTime;
-            }else
-            {
-                repaint(objAux);
-                turnOnMovement();
-            }
-            //repaint();
-            //moveTowardsObject();
+
         }
     }
 

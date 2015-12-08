@@ -35,7 +35,7 @@ public class ObjectiveControl : MonoBehaviour
     private Sprite mapVictory;
 
 
-    private int objectivesDone = 0;
+    private int objectivesDone = 4;
     private int currentPowerUp = 0;
 
     
@@ -147,7 +147,11 @@ public class ObjectiveControl : MonoBehaviour
         GameObject.Find("sBuildingO").GetComponent<SpriteRenderer>().enabled = false;
         GameObject.Find("sBuildingTopO").GetComponent<SpriteRenderer>().enabled = false;
         GameObject.Find("stationO").GetComponent<SpriteRenderer>().enabled = false;
+        GameObject.Find("sprayCanUI1").GetComponent<SpriteRenderer>().enabled = false;
+        GameObject.Find("sprayCanUI2").GetComponent<SpriteRenderer>().enabled = false;
+        GameObject.Find("painter").GetComponent<PainterMovement>().working = false;
 
+        //GameObject.Find("stationO").GetComponent<SpriteRenderer>().enabled = false;
 
 
 
