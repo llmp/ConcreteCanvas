@@ -9,7 +9,7 @@ public class NPCGenericMovement : MonoBehaviour {
 	[SerializeField]
 	protected float fieldOfViewSides = 0.3f;
 	[SerializeField]
-	private float moveSpeed = 0.02f;
+	private float moveSpeed = 0.03f;
 	[SerializeField]
 	protected short moveCount = 0;
 	[SerializeField]
