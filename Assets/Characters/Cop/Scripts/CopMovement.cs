@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 
 public class CopMovement : NPCGenericMovement {
+    public PauseScript pauseScene;
 
     private bool isEating = false;
     private float time = 0;
@@ -13,11 +14,17 @@ public class CopMovement : NPCGenericMovement {
 	void Start(){
 		initializeAnimator(gameObject.GetComponent<Animator>());
         audioSource = gameObject.GetComponent<AudioSource>();
+        pauseScene = FindObjectOfType<PauseScript>();
     }
 
 	void Update(){
 		GameObject player = GameObject.Find("player");
-//		catchPlayer(player.transform.position);
+        //		catchPlayer(player.transform.position);
+        if (pauseScene.isPaused)
+        {
+            return;
+        }
+        
 		this.lookFor(player);
         if (isEating )
         {
@@ -33,6 +40,7 @@ public class CopMovement : NPCGenericMovement {
 //			}
 //        }
     }
+    
 
 	private void lookFor(GameObject objective){
 		base.lookFor(objective);

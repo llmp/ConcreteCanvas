@@ -15,7 +15,8 @@ public class PainterMovement : NPCGenericMovement {
     private bool movingLeft = false;
     private bool movingUp = false;
     */
-    
+    public PauseScript pauseScene;
+
     private GameObject obj1;
     private GameObject obj2;
     private GameObject obj3;
@@ -38,12 +39,18 @@ public class PainterMovement : NPCGenericMovement {
         objectives[1] = obj2;
         objectives[2] = obj3;
         objectives[3] = obj4;
+        pauseScene = FindObjectOfType<PauseScript>();
     }
 
 
 
     // Update is called once per frame
     void Update() {
+        if (pauseScene.isPaused)
+        {
+            return;
+        }
+
         if (working)
         {
             foreach (GameObject objective in objectives)

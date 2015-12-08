@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour {
     private bool isWalking = false;
 	[SerializeField]
 	private float moveSpeed = 0.039375f;
-    private float baseMoveSpeed = 0.02f;
+    private float baseMoveSpeed = 0.039375f;
     private short walkingDirection;
 
 	//BorderCheck
@@ -51,13 +51,20 @@ public class PlayerMovement : MonoBehaviour {
     private float time = 0f;
     private float skateTime = 0f;
 
+    private PauseScript pauseScene;
+
     void Start () {
 		animator = gameObject.GetComponent<Animator>();
         aud = gameObject.GetComponent<AudioSource>();
+        pauseScene = FindObjectOfType<PauseScript>();
     }
 
 	void Update () {
-		getGridPosition();
+        if (pauseScene.isPaused)
+        {
+            return;
+        }
+        getGridPosition();
         if (animator.GetBool("isSpraying") )
         {
             if (time <= 5)

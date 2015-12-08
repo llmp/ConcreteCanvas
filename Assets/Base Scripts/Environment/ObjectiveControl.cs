@@ -33,8 +33,8 @@ public class ObjectiveControl : MonoBehaviour
 
     [SerializeField]
     private Sprite mapVictory;
-
-
+    private float victoryTime = 0f;
+    private bool victoryScreen=false;
     private int objectivesDone = 0;
     private int currentPowerUp = 0;
 
@@ -49,8 +49,21 @@ public class ObjectiveControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkVictory();
+        if (victoryScreen)
+        {
+            victoryTime += Time.deltaTime;
+            if (victoryTime >= 3f)
+            {
+                victoryScreen = false;
+                Application.LoadLevel("StartScene");
+            }
+        }
+        else
+        {
 
+            checkVictory();
+
+        }
     }
     public void changeO(GameObject obj)
     {
@@ -110,7 +123,8 @@ public class ObjectiveControl : MonoBehaviour
         if (objectivesDone >= 4)
         {
             paintMap();
-            objectivesDone = -1;
+            victoryScreen = true;
+            objectivesDone = 0;
         }
 
     }
