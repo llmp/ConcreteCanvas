@@ -35,7 +35,7 @@ public class ObjectiveControl : MonoBehaviour
     private Sprite mapVictory;
 
 
-    private int objectivesDone = 4;
+    private int objectivesDone = 0;
     private int currentPowerUp = 0;
 
     
