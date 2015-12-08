@@ -138,9 +138,11 @@ public class ObjectiveControl : MonoBehaviour
     }
     void paintMap()
     {
+        GameObject.Find("Main Camera").GetComponent<CameraController>().setVictoryCamera();
         GameObject.Destroy(GameObject.Find("map objects"));
         GameObject.Destroy(GameObject.Find("objectives"));
         GameObject.Find("background").GetComponent<SpriteRenderer>().sprite = mapVictory;
+
     }
 
     public bool verifyPainted(GameObject obj)

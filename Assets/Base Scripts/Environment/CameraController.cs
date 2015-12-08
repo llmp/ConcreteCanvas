@@ -5,19 +5,31 @@ public class CameraController : MonoBehaviour {
 
 	float fixedX;
 	float fixedY;
-
-	// Use this for initialization
+    private Vector3 gameEnd;
+    private bool checkVictory = false;
+    // Use this for initialization
 	void Start(){
-		setFixXOnPlayer();
-		setFixYOnPlayer();
+        gameEnd = GameObject.Find("background").transform.position;
+
+        setFixXOnPlayer();
+        setFixYOnPlayer();
+
 	}
 	
 	// Update is called once per frame
 	void Update(){
-		youShallNotPass(GameObject.Find("player").transform.position.x, GameObject.Find("player").transform.position.y);
-		fixCamera(fixedX, fixedY);
-		gameObject.GetComponent<BoundariesChecker>().checkBorders(transform.position);
 
+        if (!checkVictory)
+        {
+            youShallNotPass(GameObject.Find("player").transform.position.x, GameObject.Find("player").transform.position.y);
+            fixCamera(fixedX, fixedY);
+            gameObject.GetComponent<BoundariesChecker>().checkBorders(transform.position);
+        }
+        else
+        {
+            fixCamera(gameEnd.x,gameEnd.y);
+            reScale();
+        }
 	}
 	
 	private void fixCamera(float xPosition, float yPosition){
@@ -26,13 +38,24 @@ public class CameraController : MonoBehaviour {
 		                                            gameObject.transform.position.z);
 	}
 
+
 	private void setFixXOnPlayer(){
 		fixedX = GameObject.Find("player").transform.position.x;
 	}
 
 	private void setFixYOnPlayer(){
 		fixedY = GameObject.Find("player").transform.position.y;
-	}
+
+    }
+    public void setVictoryCamera()
+    {
+        checkVictory = true;
+    }
+
+    private void reScale()
+    {
+        gameObject.GetComponent<Camera>().orthographicSize = 6.4f;
+    }
 
 	private void youShallNotPass(float newX, float newY){
 		bool isBot = gameObject.GetComponent<BoundariesChecker>().isTouchingBottom;
